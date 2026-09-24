@@ -1,0 +1,795 @@
+/* ==========================================================================
+   1. CONFIGURACIÓN GENERAL Y VARIABLES (ESTILO NASA)
+   ========================================================================== */
+:root {
+    --bg-color: #0b0d17;
+    --card-bg: rgba(20, 24, 40, 0.75);
+    --nasa-red: #e03c31;
+    --nasa-blue: #0b3d91;
+    --text-color: #ffffff;
+    --text-muted: #a0aab8;
+    --accent-orange: #ff6b35;
+    --border-color: rgba(255, 255, 255, 0.12);
+    --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   2. NAVEGACIÓN (HEADER NAV)
+   ========================================================================== */
+.nasa-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(11, 13, 23, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+}
+
+.nasa-logo span {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #fff;
+    background: linear-gradient(90deg, #fff, var(--nasa-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-right a {
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+}
+
+.nav-right a:hover {
+    color: var(--nasa-red);
+}
+
+.search-container {
+    position: relative;
+    width: 220px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    color: #fff;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+    border-color: var(--nasa-red);
+    box-shadow: 0 0 10px rgba(224, 60, 49, 0.3);
+}
+
+/* ==========================================================================
+   3. HERO / PORTADA
+   ========================================================================== */
+.hero-nasa {
+    position: relative;
+    height: 75vh;
+    min-height: 500px;
+    background: url('https://scontent.ftru8-1.fna.fbcdn.net/v/t1.15752-9/798261328_3757416124410039_1647073210388727719_n.png?stp=dst-png_s960x960&_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=DtoL3s7BIMIQ7kNvwGD8fLF&_nc_oc=AdorebHIDhy__LcJUFaXrwYBPbYjXC0SApsKJ0nBrKWbb8jbddEWIBpqIJnfPuXy7nk&_nc_ad=z-m&_nc_cid=1549&_nc_zt=23&_nc_ht=scontent.ftru8-1.fna&_nc_ss=7a22e&oh=03_Q7cD6QFqQPDLVcE4DKInIDpVRwZ1YxGVskDaUrAXtu5iBxV12A&oe=6ACA9220') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    margin-top: 70px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(11,13,23,0.95) 0%, rgba(11,13,23,0.5) 60%, transparent 100%);
+}
+
+.hero-content {
+    position: relative;
+    max-width: 600px;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.btn-nodus-red {
+    display: inline-block;
+    background: var(--nasa-red);
+    color: #fff;
+    padding: 0.8rem 1.8rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-nodus-red:hover {
+    background: #c02b21;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   4. ESTRUCTURA DE SECCIONES
+   ========================================================================== */
+.nasa-section {
+    padding: 4rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--nasa-red);
+    margin-top: 6px;
+    border-radius: 2px;
+}
+
+.sim-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   5. AGUJERO NEGRO INTERSTELLAR 3D (CONTENEDOR Y PANEL)
+   ========================================================================== */
+.blackhole-viewport-container {
+    position: relative;
+    width: 100%;
+    height: 580px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 35px rgba(224, 60, 49, 0.15);
+}
+
+#blackhole-canvas-container {
+    width: 100%;
+    height: 100%;
+}
+
+.view-controls-panel {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    background: rgba(11, 13, 23, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    z-index: 10;
+}
+
+.view-controls-panel h3 {
+    font-size: 0.8rem;
+    color: var(--nasa-red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+}
+
+.view-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.65rem 1.2rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+    background: var(--nasa-red);
+    border-color: var(--nasa-red);
+    transform: translateX(5px);
+}
+
+/* ==========================================================================
+   6. VÍDEO DESTACADO Y SECCIONES INTERACTIVAS
+   ========================================================================== */
+.featured-container {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.video-card {
+    flex: 1;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-card iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.featured-info {
+    flex: 1;
+}
+
+.featured-info .tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-orange);
+    letter-spacing: 1px;
+}
+
+.featured-info h2 {
+    font-size: 1.8rem;
+    margin: 0.5rem 0 1rem 0;
+}
+
+/* ==========================================================================
+   7. CATÁLOGO DE PLANETAS Y LUNAS
+   ========================================================================== */
+.planets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.8rem;
+}
+
+.planet-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.planet-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.planet-img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    margin-bottom: 1.2rem;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+    transition: transform 0.4s ease;
+}
+
+.planet-card:hover .planet-img {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.planet-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.planet-type {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   8. ECUACIONES, GALERÍA Y FOOTER
+   ========================================================================== */
+.formulas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.formula-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.math-formula {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.3rem;
+    color: var(--accent-orange);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.nasa-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-item {
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+.more-images-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn-nasa-outline {
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    padding: 0.7rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-nasa-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+}
+
+.footer-section {
+    border-top: 1px solid var(--border-color);
+    margin-top: 4rem;
+}
+
+.biblio-list {
+    list-style: none;
+    margin: 1.5rem 0;
+}
+
+.biblio-list li {
+    margin-bottom: 0.6rem;
+    color: var(--text-muted);
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2rem;
+}
+
+/* ==========================================================================
+   9. MODAL FLOTANTE DE INFORMACIÓN
+   ========================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #101424;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.close-modal:hover {
+    color: #fff;
+}
+
+/* ==========================================================================
+   10. RESPONSIVO (MÓVILES Y TABLETS)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .nasa-nav {
+        padding: 0 1rem;
+    }
+    
+    .nav-right {
+        display: none; /* Simplificado para pantallas pequeñas */
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .featured-container {
+        flex-direction: column;
+    }
+
+    .blackhole-viewport-container {
+        height: 420px;
+    }
+
+    .view-controls-panel {
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+        padding: 0.8rem;
+    }
+}
+/* ===================================================
+   VARIABLES DE COLOR Y PALETA PERSONALIZADA
+=================================================== */
+:root {
+    --bg-dark: #0B1026;
+    --bg-navy: #1A2A4F;
+    --accent-blue: #2F3C7E;
+    --soft-lavender: #A9B6FF;
+    --warm-cream: #F2E8C9;
+    --text-light: #F2E8C9;
+    --text-dark: #0B1026;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* ===================================================
+   NAVEGACIÓN (LOGO E INICIO MANTENIDOS)
+=================================================== */
+.nasa-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: rgba(11, 16, 38, 0.85);
+    backdrop-filter: blur(12px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(169, 182, 255, 0.2);
+}
+
+.nasa-logo {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--warm-cream);
+}
+
+.nav-right a {
+    color: var(--soft-lavender);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-right a:hover {
+    color: var(--warm-cream);
+}
+
+/* ===================================================
+   SECCIONES CON COLORES CLAROS Y DIFUMINADOS
+=================================================== */
+.nasa-section {
+    padding: 100px 40px 60px;
+    position: relative;
+}
+
+/* Degradados suaves difuminados según sección */
+.section-gradient-1 {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-navy) 60%, var(--accent-blue) 100%);
+}
+
+.section-gradient-2 {
+    background: linear-gradient(180deg, var(--accent-blue) 0%, rgba(169, 182, 255, 0.25) 50%, var(--bg-navy) 100%);
+    backdrop-filter: blur(20px);
+}
+
+.section-gradient-3 {
+    background: radial-gradient(circle at center, rgba(169, 182, 255, 0.2) 0%, var(--bg-dark) 80%);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    color: var(--warm-cream);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.sim-subtitle {
+    text-align: center;
+    color: var(--soft-lavender);
+    margin-bottom: 40px;
+}
+
+/* ===================================================
+   SECCIÓN PLANETAS (IMAGEN DE REBANADAS DE PLANETAS)
+=================================================== */
+.planets-slice-banner {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid rgba(169, 182, 255, 0.3);
+}
+
+.planets-slice-banner img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.planets-interactive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+    max-width: 1200px;
+    margin: 25px auto 0;
+}
+
+.planet-btn-card {
+    background: rgba(26, 42, 79, 0.6);
+    border: 1px solid rgba(169, 182, 255, 0.3);
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.planet-btn-card:hover {
+    background: var(--soft-lavender);
+    color: var(--bg-dark);
+    transform: translateY(-5px);
+}
+
+.planet-btn-card h4 {
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+/* ===================================================
+   VISTA / MODAL TIPO PÓSTER (ESTILO IMÁGENES 3, 4 Y 5)
+=================================================== */
+.poster-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 16, 38, 0.92);
+    backdrop-filter: blur(15px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.poster-modal.active {
+    display: flex;
+}
+
+.poster-card {
+    background: #000;
+    width: 100%;
+    max-width: 900px;
+    height: 90vh;
+    border: 1px solid rgba(242, 232, 201, 0.3);
+    border-radius: 12px;
+    position: relative;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 20px;
+    overflow-y: auto;
+    box-shadow: 0 0 50px rgba(169, 182, 255, 0.2);
+}
+
+.close-poster {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--warm-cream);
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Tipografía gigante estilo poster */
+.poster-title-vertical {
+    grid-column: 1 / -1;
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 0.9;
+    border-bottom: 2px solid var(--warm-cream);
+    padding-bottom: 10px;
+}
+
+.poster-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.poster-image-container img {
+    max-width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+}
+
+.poster-info-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #ddd;
+    line-height: 1.6;
+}
+
+.poster-info-content p {
+    margin-bottom: 15px;
+}
+
+.poster-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.poster-stats-table td {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.poster-stats-table td.label {
+    color: var(--soft-lavender);
+    font-weight: 600;
+}
+
+.poster-stats-table td.val {
+    text-align: right;
+    color: var(--warm-cream);
+    font-family: monospace;
+}
+
+
+<style>
+    /* 1. Ajuste del menú para que no sea muy alto */
+    .nasa-nav {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 10px 25px !important;
+        height: 60px !important; /* Mantiene la barra delgada */
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Forzar a que NODUS ALETHEIA esté en una sola línea */
+    .nasa-logo {
+        white-space: nowrap !important;
+        font-size: 1.1rem !important;
+        font-weight: 800 !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* 3. Pegar la imagen del astronauta más arriba */
+    .hero-nasa, #inicio, .hero-section {
+        margin-top: 0 !important;
+        padding-top: 60px !important; /* Ajuste exacto al tamaño de la barra */
+    }
+</style>
