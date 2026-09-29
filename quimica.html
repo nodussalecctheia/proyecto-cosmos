@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección: Química - Nodus Aletheia</title>
+    
+    <!-- IMPORTACIÓN DE LA FUENTE ESTÉTICA DESDE GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ARCHIVO CSS PRINCIPAL -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* RESET BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Poppins', sans-serif !important;
+        }
+
+        body {
+            background-color: #090511;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* BARRA SUPERIOR FLOTANTE CON TIPOGRAFÍA ESTÉTICA EN LILA PASTEL */
+        .navbar-quimica {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 14px 4% !important;
+            background: rgba(18, 12, 28, 0.85) !important;
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+            z-index: 99999 !important;
+            border-bottom: 1px solid rgba(216, 180, 254, 0.3) !important;
+            box-sizing: border-box !important;
+        }
+
+        /* MENÚ DE ENLACES */
+        .nav-links-lila {
+            display: flex !important;
+            list-style: none !important;
+            gap: 24px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            align-items: center !important;
+        }
+
+        .nav-links-lila li {
+            list-style: none !important;
+            display: inline-block !important;
+        }
+
+        .nav-links-lila a {
+            color: #e9d5ff !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 1.5px !important;
+            text-transform: uppercase !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-links-lila a:hover {
+            color: #d8b4fe !important;
+            text-shadow: 0 0 12px rgba(216, 180, 254, 0.9) !important;
+        }
+
+        /* BOTÓN VOLVER EN LILA PASTEL */
+        .btn-atras-lila {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            color: #ffffff !important;
+            background: rgba(192, 132, 252, 0.2) !important;
+            border: 1px solid rgba(216, 180, 254, 0.6) !important;
+            padding: 8px 20px !important;
+            border-radius: 30px !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+            font-size: 0.88rem !important;
+            letter-spacing: 0.5px !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+        }
+
+        .btn-atras-lila:hover {
+            background: #a855f7 !important;
+            border-color: #c084fc !important;
+            box-shadow: 0 0 18px rgba(168, 85, 247, 0.7) !important;
+            color: #ffffff !important;
+            transform: translateX(-3px);
+        }
+
+        /* CONTENEDOR DE LA PORTADA FULL WIDTH */
+        .hero-quimica-portada {
+            position: relative !important;
+            width: 100vw !important;
+            min-height: 100vh !important;
+            background: #090511 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            overflow: hidden !important;
+        }
+
+        .portada-contenedor {
+            position: relative;
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            z-index: 2;
+        }
+
+        /* IMAGEN FULL WIDTH */
+        .imagen-portada-quimica {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            border-radius: 0 !important;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+<!-- ASISTENTE IA EN LA ESQUINA INFERIOR -->
+<button id="ia-floating-btn" onclick="toggleIAChat()">
+    <span>🤖</span> Asistente NODUS
+</button>
+
+<div id="ia-chat-modal">
+    <div class="ia-header">
+        <span>🤖 Asistente Nodus Aletheia</span>
+        <button class="ia-close-btn" onclick="toggleIAChat()">✕</button>
+    </div>
+    <div class="ia-messages" id="ia-messages-container">
+        <div class="ia-msg bot">
+            ¡Hola! Soy la Inteligencia Artificial de Nodus Aletheia. ¿Tienes alguna pregunta sobre tu curso?
+        </div>
+    </div>
+    <div class="ia-input-container">
+        <input type="text" id="ia-user-input" placeholder="Escribe tu consulta..." onkeypress="handleIAKeyPress(event)">
+        <button onclick="sendIAMessage()">➤</button>
+    </div>
+</div>
+
+<!-- ESTILOS CSS DEL CHAT (CUADRO MORADO CON LETRAS BLANCAS) -->
+<style>
+/* BOTÓN FLOTANTE */
+#ia-floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #6b21a8; /* Morado intenso */
+    color: #ffffff;     /* Letras blancas */
+    border: 2px solid #c084fc; /* Borde morado claro brillante constante */
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* VENTANA PRINCIPAL DEL CHAT (CUADRO MORADO) */
+#ia-chat-modal {
+    position: fixed;
+    bottom: 85px;
+    right: 25px;
+    width: 350px;
+    height: 450px;
+    background: #12071f; /* Fondo morado muy oscuro */
+    border: 2px solid #a855f7; /* Borde morado neón constante */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(168, 85, 247, 0.3);
+    z-index: 99999;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ENCABEZADO */
+.ia-header {
+    background: #240e38; /* Morado berenjena oscuro para la cabecera */
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff; /* Texto blanco */
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #a855f7; /* Línea divisoria morada */
+}
+
+.ia-close-btn {
+    background: transparent;
+    border: none;
+    color: #c084fc; /* Morado claro constante */
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ÁREA DE MENSAJES */
+.ia-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #12071f; /* Fondo del historial */
+}
+
+.ia-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* MENSAJE DEL BOT (Fondo morado berenjena con borde y texto blanco) */
+.ia-msg.bot {
+    background: #240e38;
+    color: #ffffff; /* Texto blanco */
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+    border: 1px solid #a855f7;
+}
+
+/* MENSAJE DEL USUARIO (Fondo morado brillante con texto blanco) */
+.ia-msg.user {
+    background: #6b21a8;
+    color: #ffffff; /* Texto blanco */
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+    border: 1px solid #c084fc;
+}
+
+/* CONTENEDOR DE ENTRADA DE TEXTO */
+.ia-input-container {
+    padding: 12px;
+    background: #240e38;
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid #a855f7;
+}
+
+.ia-input-container input {
+    flex: 1;
+    background: #12071f;
+    border: 1px solid #a855f7; /* Borde morado constante */
+    padding: 10px 14px;
+    border-radius: 20px;
+    color: #ffffff; /* Texto escrito por el usuario en blanco */
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.ia-input-container input::placeholder {
+    color: #c084fc; /* Placeholder morado claro */
+}
+
+/* BOTÓN DE ENVIAR */
+.ia-input-container button {
+    background: #6b21a8;
+    border: 1px solid #c084fc;
+    color: #ffffff; /* Icono blanco */
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+</style>
+
+<!-- SCRIPT CON LLAMADA A GEMINI -->
+<script>
+    const GEMINI_API_KEY = "AQ.Ab8RN6JHULghiU0TZb_kOIi9FMI9hTcko7Wv5u3ob3eCFitl2w";
+
+    function toggleIAChat() {
+        const chat = document.getElementById('ia-chat-modal');
+        if (chat.style.display === 'flex') {
+            chat.style.display = 'none';
+        } else {
+            chat.style.display = 'flex';
+        }
+    }
+
+    function handleIAKeyPress(e) {
+        if (e.key === 'Enter') sendIAMessage();
+    }
+
+    async function sendIAMessage() {
+        const input = document.getElementById('ia-user-input');
+        const container = document.getElementById('ia-messages-container');
+        const prompt = input.value.trim();
+        if (!prompt) return;
+
+        // 1. Mensaje del usuario
+        const userMsg = document.createElement('div');
+        userMsg.className = 'ia-msg user';
+        userMsg.textContent = prompt;
+        container.appendChild(userMsg);
+
+        input.value = '';
+        container.scrollTop = container.scrollHeight;
+
+        // 2. Mensaje "Pensando..." del bot
+        const botMsg = document.createElement('div');
+        botMsg.className = 'ia-msg bot';
+        botMsg.textContent = 'Pensando...';
+        container.appendChild(botMsg);
+        container.scrollTop = container.scrollHeight;
+
+        try {
+            // Modelo actualizado gemini-3.8-flash que ya acepta la API
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }]
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                botMsg.textContent = data.candidates[0].content.parts[0].text;
+            } else if (data.error) {
+                botMsg.textContent = "Error de API: " + data.error.message;
+            } else {
+                botMsg.textContent = "Respuesta no recibida correctamente.";
+            }
+        } catch (error) {
+            console.error(error);
+            botMsg.textContent = "Error de conexión al servidor.";
+        }
+
+        container.scrollTop = container.scrollHeight;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (MORADO NEÓN) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(20, 8, 36, 0.9); border: 1px solid #a855f7; color: #c084fc; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(168, 85, 247, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Violeta neón intenso encendido
+                btn.style.borderColor = "#e879f9";
+                btn.style.color = "#e879f9";
+                btn.style.boxShadow = "0 0 18px rgba(232, 121, 249, 0.7)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Morado violeta estándar
+            btn.style.borderColor = "#a855f7";
+            btn.style.color = "#c084fc";
+            btn.style.boxShadow = "0 0 12px rgba(168, 85, 247, 0.4)";
+        }
+    }
+</script>
+
+
+
+
+
+
+</nav>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección: Química - Nodus</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ENCABEZADO Y PORTADA DE QUÍMICA */
+        .portada-quimica {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(20, 8, 36, 0.88)), 
+                        url('portada-quimica.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 20px 40px;
+        }
+
+        /* NAVEGACIÓN SUPERIOR */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* BOTÓN VOLVER CON ESTILO MORADO / VIOLETA */
+        .btn-volver {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(147, 51, 234, 0.2);
+            border: 1px solid rgba(192, 132, 252, 0.6);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            background: #9333ea;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.6);
+            transform: translateX(-3px);
+        }
+
+        /* MENÚ DE ÁREAS */
+        .menu-navegacion {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-navegacion a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .menu-navegacion a:hover {
+            color: #ffffff;
+        }
+
+        /* ÁREA ACTIVA: QUÍMICA (MORADO NEÓN) */
+        .menu-navegacion a.activo-quimica {
+            color: #c084fc !important;
+            text-shadow: 0 0 12px rgba(192, 132, 252, 0.9),
+                         0 0 20px rgba(147, 51, 234, 0.7);
+            border-bottom: 2px solid #c084fc;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA QUÍMICA -->
+    <header class="portada-quimica">
+        <nav class="nav-header">
+            <!-- BOTÓN VOLVER -->
+            <a href="inicio.html" class="btn-volver">← Volver</a>
+
+            <!-- MENÚ DE MATERIAS -->
+            <ul class="menu-navegacion">
+                <li><a href="inicio.html">INICIO</a></li>
+                <li><a href="biologia.html">BIOLOGÍA</a></li>
+                <li><a href="quimica.html" class="activo-quimica">QUÍMICA</a></li>
+                <li><a href="fisica.html">FÍSICA</a></li>
+                <li><a href="matematicas.html">MATEMÁTICAS</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="sociales.html">SOCIALES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+</body>
+</html>
+</body>
+</html>
+
+
+
+
+<!-- SECCIÓN DESCRIPTIVA DE LA QUÍMICA COMO CIENCIA -->
+<section style="
+    max-width: 1000px !important;
+    margin: 40px auto 30px auto !important;
+    padding: 35px 30px !important;
+    background: rgba(18, 12, 28, 0.7) !important;
+    border: 1px solid rgba(216, 180, 254, 0.25) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.1) !important;
+    box-sizing: border-box !important;
+">
+    <!-- SUBTÍTULO FLOTANTE -->
+    <div style="
+        display: inline-block !important;
+        background: rgba(192, 132, 252, 0.15) !important;
+        border: 1px solid rgba(216, 180, 254, 0.4) !important;
+        color: #d8b4fe !important;
+        padding: 6px 16px !important;
+        border-radius: 20px !important;
+        font-size: 0.78rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 1.5px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 15px !important;
+    ">
+        ¿Qué es la Química?
+    </div>
+
+    <!-- TÍTULO DE LA SECCIÓN -->
+    <h2 style="
+        color: #ffffff !important;
+        font-size: 1.8rem !important;
+        font-weight: 800 !important;
+        margin-bottom: 18px !important;
+        letter-spacing: 0.5px !important;
+    ">
+        La Ciencia de la Materia y sus Transformaciones
+    </h2>
+
+    <!-- TEXTO EXPLICATIVO -->
+    <p style="
+        color: #cbd5e1 !important;
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+        margin-bottom: 15px !important;
+    ">
+        La <strong style="color: #d8b4fe;">Química</strong> es la ciencia natural fundamental que estudia la estructura, composición, propiedades y transformaciones de la materia, así como las variaciones de energía que ocurren durante estos procesos. Desde la escala atómica y molecular hasta los materiales complejos que nos rodean, esta disciplina busca comprender cómo se combinan los elementos para dar forma al universo.
+    </p>
+
+    <p style="
+        color: #94a3b8 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.7 !important;
+        margin: 0 !important;
+    ">
+        Conocida como la <strong style="color: #f8fafc;">"ciencia central"</strong>, conecta a la física con la biología, la geología y la medicina, permitiéndonos desarrollar desde medicamentos y nuevos materiales hasta comprender los ciclos bioquímicos del planeta.
+    </p>
+</section>
+
+
+
+
+
+
+
+<!-- SECCIÓN 1: TABLA PERIÓDICA CON ILUMINACIÓN AL PASAR EL CURSOR -->
+<section style="
+    max-width: 1000px !important;
+    margin: 40px auto !important;
+    padding: 35px 30px !important;
+    background: rgba(18, 12, 28, 0.75) !important;
+    border: 1px solid rgba(216, 180, 254, 0.3) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.15) !important;
+    box-sizing: border-box !important;
+">
+    <!-- TÍTULO PRINCIPAL -->
+    <h2 style="
+        color: #d8b4fe !important;
+        font-size: 1.8rem !important;
+        font-weight: 800 !important;
+        margin-bottom: 18px !important;
+        letter-spacing: 0.5px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    ">
+        1- Tabla Periódica
+    </h2>
+
+    <!-- TEXTO EXPLICATIVO -->
+    <p style="
+        color: #cbd5e1 !important;
+        font-size: 0.98rem !important;
+        line-height: 1.7 !important;
+        margin-bottom: 25px !important;
+    ">
+        La <strong style="color: #ffffff;">Tabla Periódica de los Elementos</strong> es la herramienta gráfica y conceptual más importante de la química. Organiza todos los elementos químicos conocidos en función de su número atómico, configuración electrónica y propiedades químicas recurrentes. Gracias a esta distribución, los científicos no solo pueden comprender cómo interactúan la materia y los bloques fundamentales del universo, sino también <strong style="color: #d8b4fe;">predecir el comportamiento de nuevos elementos y reacciones antes de ser descubiertos</strong>.
+    </p>
+
+<!-- SECCIÓN 1: TABLA PERIÓDICA COMPLETA Y FIDELIZADA (118 ELEMENTOS) -->
+<section style="
+    max-width: 1000px !important;
+    margin: 40px auto !important;
+    padding: 30px 20px !important;
+    background: rgba(18, 12, 28, 0.85) !important;
+    border: 1px solid rgba(216, 180, 254, 0.3) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.15) !important;
+    box-sizing: border-box !important;
+">
+    <!-- TÍTULO PRINCIPAL -->
+    <h2 style="
+        color: #d8b4fe !important;
+        font-size: 1.8rem !important;
+        font-weight: 800 !important;
+        margin-bottom: 14px !important;
+        letter-spacing: 0.5px !important;
+    ">
+        1- Tabla Periódica
+    </h2>
+
+    <!-- TEXTO EXPLICATIVO -->
+    <p style="
+        color: #cbd5e1 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 20px !important;
+    ">
+        La <strong style="color: #ffffff;">Tabla Periódica de los Elementos</strong> es la herramienta gráfica y conceptual más importante de la química. Organiza todos los elementos químicos conocidos en función de su número atómico y propiedades. Pasa el cursor sobre los elementos o sobre la leyenda para explorarlos.
+    </p>
+
+    <!-- TARJETA VISOR DE DETALLES DEL ELEMENTO SELECCIONADO -->
+    <div id="visorElemento" style="
+        background: rgba(26, 16, 43, 0.9) !important;
+        border: 1px solid rgba(216, 180, 254, 0.4) !important;
+        border-radius: 12px !important;
+        padding: 10px 20px !important;
+        margin-bottom: 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.2) !important;
+    ">
+        <div>
+            <span id="numAtomoVisor" style="color: #a855f7; font-weight: 800; font-size: 0.95rem;">#1</span>
+            <span id="nombreVisor" style="color: #ffffff; font-weight: 700; font-size: 1.25rem; margin-left: 10px;">Hidrógeno</span>
+            <span id="categoriaVisor" style="color: #cbd5e1; font-size: 0.85rem; margin-left: 10px; opacity: 0.8;">(No Metal)</span>
+        </div>
+        <div id="simboloVisor" style="
+            color: #d8b4fe; 
+            font-size: 1.8rem; 
+            font-weight: 900; 
+            text-shadow: 0 0 10px rgba(216, 180, 254, 0.8);
+        ">H</div>
+    </div>
+
+    <!-- RECUADRO DE SCROLL PARA LA TABLA -->
+    <div style="width: 100%; overflow-x: auto; padding-bottom: 10px;">
+        <!-- TABLA PRINCIPAL (FILAS 1 A 7) -->
+        <div class="tabla-periodica-grid">
+            <!-- Fila 1 -->
+            <div class="elem no-metal" style="grid-column: 1;" data-num="1" data-sym="H" data-nom="Hidrógeno" data-cat="No Metal"><span>1</span><strong>H</strong><small>Hidrógeno</small></div>
+            <div class="elem gas-noble" style="grid-column: 18;" data-num="2" data-sym="He" data-nom="Helio" data-cat="Gas Noble"><span>2</span><strong>He</strong><small>Helio</small></div>
+
+            <!-- Fila 2 -->
+            <div class="elem alcalino" style="grid-column: 1;" data-num="3" data-sym="Li" data-nom="Litio" data-cat="Alcalino"><span>3</span><strong>Li</strong><small>Litio</small></div>
+            <div class="elem alcalinoterreo" style="grid-column: 2;" data-num="4" data-sym="Be" data-nom="Berilio" data-cat="Alcalinotérreo"><span>4</span><strong>Be</strong><small>Berilio</small></div>
+            <div class="elem metaloide" style="grid-column: 13;" data-num="5" data-sym="B" data-nom="Boro" data-cat="Metaloide"><span>5</span><strong>B</strong><small>Boro</small></div>
+            <div class="elem no-metal" style="grid-column: 14;" data-num="6" data-sym="C" data-nom="Carbono" data-cat="No Metal"><span>6</span><strong>C</strong><small>Carbono</small></div>
+            <div class="elem no-metal" style="grid-column: 15;" data-num="7" data-sym="N" data-nom="Nitrógeno" data-cat="No Metal"><span>7</span><strong>N</strong><small>Nitrógeno</small></div>
+            <div class="elem no-metal" style="grid-column: 16;" data-num="8" data-sym="O" data-nom="Oxígeno" data-cat="No Metal"><span>8</span><strong>O</strong><small>Oxígeno</small></div>
+            <div class="elem halogeno" style="grid-column: 17;" data-num="9" data-sym="F" data-nom="Flúor" data-cat="Halógeno"><span>9</span><strong>F</strong><small>Flúor</small></div>
+            <div class="elem gas-noble" style="grid-column: 18;" data-num="10" data-sym="Ne" data-nom="Neón" data-cat="Gas Noble"><span>10</span><strong>Ne</strong><small>Neón</small></div>
+
+            <!-- Fila 3 -->
+            <div class="elem alcalino" style="grid-column: 1;" data-num="11" data-sym="Na" data-nom="Sodio" data-cat="Alcalino"><span>11</span><strong>Na</strong><small>Sodio</small></div>
+            <div class="elem alcalinoterreo" style="grid-column: 2;" data-num="12" data-sym="Mg" data-nom="Magnesio" data-cat="Alcalinotérreo"><span>12</span><strong>Mg</strong><small>Magnesio</small></div>
+            <div class="elem metal-post" style="grid-column: 13;" data-num="13" data-sym="Al" data-nom="Aluminio" data-cat="Metal Postransicional"><span>13</span><strong>Al</strong><small>Aluminio</small></div>
+            <div class="elem metaloide" style="grid-column: 14;" data-num="14" data-sym="Si" data-nom="Silicio" data-cat="Metaloide"><span>14</span><strong>Si</strong><small>Silicio</small></div>
+            <div class="elem no-metal" style="grid-column: 15;" data-num="15" data-sym="P" data-nom="Fósforo" data-cat="No Metal"><span>15</span><strong>P</strong><small>Fósforo</small></div>
+            <div class="elem no-metal" style="grid-column: 16;" data-num="16" data-sym="S" data-nom="Azufre" data-cat="No Metal"><span>16</span><strong>S</strong><small>Azufre</small></div>
+            <div class="elem halogeno" style="grid-column: 17;" data-num="17" data-sym="Cl" data-nom="Cloro" data-cat="Halógeno"><span>17</span><strong>Cl</strong><small>Cloro</small></div>
+            <div class="elem gas-noble" style="grid-column: 18;" data-num="18" data-sym="Ar" data-nom="Argón" data-cat="Gas Noble"><span>18</span><strong>Ar</strong><small>Argón</small></div>
+
+            <!-- Fila 4 -->
+            <div class="elem alcalino" style="grid-column: 1;" data-num="19" data-sym="K" data-nom="Potasio" data-cat="Alcalino"><span>19</span><strong>K</strong><small>Potasio</small></div>
+            <div class="elem alcalinoterreo" style="grid-column: 2;" data-num="20" data-sym="Ca" data-nom="Calcio" data-cat="Alcalinotérreo"><span>20</span><strong>Ca</strong><small>Calcio</small></div>
+            <div class="elem transicion" style="grid-column: 3;" data-num="21" data-sym="Sc" data-nom="Escandio" data-cat="Metal Transicional"><span>21</span><strong>Sc</strong><small>Escandio</small></div>
+            <div class="elem transicion" style="grid-column: 4;" data-num="22" data-sym="Ti" data-nom="Titanio" data-cat="Metal Transicional"><span>22</span><strong>Ti</strong><small>Titanio</small></div>
+            <div class="elem transicion" style="grid-column: 5;" data-num="23" data-sym="V" data-nom="Vanadio" data-cat="Metal Transicional"><span>23</span><strong>V</strong><small>Vanadio</small></div>
+            <div class="elem transicion" style="grid-column: 6;" data-num="24" data-sym="Cr" data-nom="Cromo" data-cat="Metal Transicional"><span>24</span><strong>Cr</strong><small>Cromo</small></div>
+            <div class="elem transicion" style="grid-column: 7;" data-num="25" data-sym="Mn" data-nom="Manganeso" data-cat="Metal Transicional"><span>25</span><strong>Mn</strong><small>Manganeso</small></div>
+            <div class="elem transicion" style="grid-column: 8;" data-num="26" data-sym="Fe" data-nom="Hierro" data-cat="Metal Transicional"><span>26</span><strong>Fe</strong><small>Hierro</small></div>
+            <div class="elem transicion" style="grid-column: 9;" data-num="27" data-sym="Co" data-nom="Cobalto" data-cat="Metal Transicional"><span>27</span><strong>Co</strong><small>Cobalto</small></div>
+            <div class="elem transicion" style="grid-column: 10;" data-num="28" data-sym="Ni" data-nom="Níquel" data-cat="Metal Transicional"><span>28</span><strong>Ni</strong><small>Níquel</small></div>
+            <div class="elem transicion" style="grid-column: 11;" data-num="29" data-sym="Cu" data-nom="Cobre" data-cat="Metal Transicional"><span>29</span><strong>Cu</strong><small>Cobre</small></div>
+            <div class="elem transicion" style="grid-column: 12;" data-num="30" data-sym="Zn" data-nom="Cinc" data-cat="Metal Transicional"><span>30</span><strong>Zn</strong><small>Cinc</small></div>
+            <div class="elem metal-post" style="grid-column: 13;" data-num="31" data-sym="Ga" data-nom="Galio" data-cat="Metal Postransicional"><span>31</span><strong>Ga</strong><small>Galio</small></div>
+            <div class="elem metaloide" style="grid-column: 14;" data-num="32" data-sym="Ge" data-nom="Germanio" data-cat="Metaloide"><span>32</span><strong>Ge</strong><small>Germanio</small></div>
+            <div class="elem metaloide" style="grid-column: 15;" data-num="33" data-sym="As" data-nom="Arsénico" data-cat="Metaloide"><span>33</span><strong>As</strong><small>Arsénico</small></div>
+            <div class="elem no-metal" style="grid-column: 16;" data-num="34" data-sym="Se" data-nom="Selenio" data-cat="No Metal"><span>34</span><strong>Se</strong><small>Selenio</small></div>
+            <div class="elem halogeno" style="grid-column: 17;" data-num="35" data-sym="Br" data-nom="Bromo" data-cat="Halógeno"><span>35</span><strong>Br</strong><small>Bromo</small></div>
+            <div class="elem gas-noble" style="grid-column: 18;" data-num="36" data-sym="Kr" data-nom="Kriptón" data-cat="Gas Noble"><span>36</span><strong>Kr</strong><small>Kriptón</small></div>
+
+            <!-- Fila 5 -->
+            <div class="elem alcalino" style="grid-column: 1;" data-num="37" data-sym="Rb" data-nom="Rubidio" data-cat="Alcalino"><span>37</span><strong>Rb</strong><small>Rubidio</small></div>
+            <div class="elem alcalinoterreo" style="grid-column: 2;" data-num="38" data-sym="Sr" data-nom="Estroncio" data-cat="Alcalinotérreo"><span>38</span><strong>Sr</strong><small>Estroncio</small></div>
+            <div class="elem transicion" style="grid-column: 3;" data-num="39" data-sym="Y" data-nom="Itrio" data-cat="Metal Transicional"><span>39</span><strong>Y</strong><small>Itrio</small></div>
+            <div class="elem transicion" style="grid-column: 4;" data-num="40" data-sym="Zr" data-nom="Zirconio" data-cat="Metal Transicional"><span>40</span><strong>Zr</strong><small>Zirconio</small></div>
+            <div class="elem transicion" style="grid-column: 5;" data-num="41" data-sym="Nb" data-nom="Niobio" data-cat="Metal Transicional"><span>41</span><strong>Nb</strong><small>Niobio</small></div>
+            <div class="elem transicion" style="grid-column: 6;" data-num="42" data-sym="Mo" data-nom="Molibdeno" data-cat="Metal Transicional"><span>42</span><strong>Mo</strong><small>Molibdeno</small></div>
+            <div class="elem transicion" style="grid-column: 7;" data-num="43" data-sym="Tc" data-nom="Tecnecio" data-cat="Metal Transicional"><span>43</span><strong>Tc</strong><small>Tecnecio</small></div>
+            <div class="elem transicion" style="grid-column: 8;" data-num="44" data-sym="Ru" data-nom="Rutenio" data-cat="Metal Transicional"><span>44</span><strong>Ru</strong><small>Rutenio</small></div>
+            <div class="elem transicion" style="grid-column: 9;" data-num="45" data-sym="Rh" data-nom="Rodio" data-cat="Metal Transicional"><span>45</span><strong>Rh</strong><small>Rodio</small></div>
+            <div class="elem transicion" style="grid-column: 10;" data-num="46" data-sym="Pd" data-nom="Paladio" data-cat="Metal Transicional"><span>46</span><strong>Pd</strong><small>Paladio</small></div>
+            <div class="elem transicion" style="grid-column: 11;" data-num="47" data-sym="Ag" data-nom="Plata" data-cat="Metal Transicional"><span>47</span><strong>Ag</strong><small>Plata</small></div>
+            <div class="elem transicion" style="grid-column: 12;" data-num="48" data-sym="Cd" data-nom="Cadmio" data-cat="Metal Transicional"><span>48</span><strong>Cd</strong><small>Cadmio</small></div>
+            <div class="elem metal-post" style="grid-column: 13;" data-num="49" data-sym="In" data-nom="Indio" data-cat="Metal Postransicional"><span>49</span><strong>In</strong><small>Indio</small></div>
+            <div class="elem metal-post" style="grid-column: 14;" data-num="50" data-sym="Sn" data-nom="Estaño" data-cat="Metal Postransicional"><span>50</span><strong>Sn</strong><small>Estaño</small></div>
+            <div class="elem metaloide" style="grid-column: 15;" data-num="51" data-sym="Sb" data-nom="Antimonio" data-cat="Metaloide"><span>51</span><strong>Sb</strong><small>Antimonio</small></div>
+            <div class="elem metaloide" style="grid-column: 16;" data-num="52" data-sym="Te" data-nom="Telurio" data-cat="Metaloide"><span>52</span><strong>Te</strong><small>Telurio</small></div>
+            <div class="elem halogeno" style="grid-column: 17;" data-num="53" data-sym="I" data-nom="Yodo" data-cat="Halógeno"><span>53</span><strong>I</strong><small>Yodo</small></div>
+            <div class="elem gas-noble" style="grid-column: 18;" data-num="54" data-sym="Xe" data-nom="Xenón" data-cat="Gas Noble"><span>54</span><strong>Xe</strong><small>Xenón</small></div>
+
+            <!-- Fila 6 -->
+            <div class="elem alcalino" style="grid-column: 1;" data-num="55" data-sym="Cs" data-nom="Cesio" data-cat="Alcalino"><span>55</span><strong>Cs</strong><small>Cesio</small></div>
+            <div class="elem alcalinoterreo" style="grid-column: 2;" data-num="56" data-sym="Ba" data-nom="Bario" data-cat="Alcalinotérreo"><span>56</span><strong>Ba</strong><small>Bario</small></div>
+            <div class="elem lantanido" style="grid-column: 3;" data-num="57" data-sym="La" data-nom="Lántano" data-cat="Lantánido"><span>57</span><strong>La</strong><small>Lántano</small></div>
+            <div class="elem transicion" style="grid-column: 4;" data-num="72" data-sym="Hf" data-nom="Hafnio" data-cat="Metal Transicional"><span>72</span><strong>Hf</strong><small>Hafnio</small></div>
+            <div class="elem transicion" style="grid-column: 5;" data-num="73" data-sym="Ta" data-nom="Tántalo" data-cat="Metal Transicional"><span>73</span><strong>Ta</strong><small>Tántalo</small></div>
+            <div class="elem transicion" style="grid-column: 6;" data-num="74" data-sym="W" data-nom="Wolframio" data-cat="Metal Transicional"><span>74</span><strong>W</strong><small>Wolframio</small></div>
+            <div class="elem transicion" style="grid-column: 7;" data-num="75" data-sym="Re" data-nom="Renio" data-cat="Metal Transicional"><span>75</span><strong>Re</strong><small>Renio</small></div>
+            <div class="elem transicion" style="grid-column: 8;" data-num="76" data-sym="Os" data-nom="Osmio" data-cat="Metal Transicional"><span>76</span><strong>Os</strong><small>Osmio</small></div>
+            <div class="elem transicion" style="grid-column: 9;" data-num="77" data-sym="Ir" data-nom="Iridio" data-cat="Metal Transicional"><span>77</span><strong>Ir</strong><small>Iridio</small></div>
+            <div class="elem transicion" style="grid-column: 10;" data-num="78" data-sym="Pt" data-nom="Platino" data-cat="Metal Transicional"><span>78</span><strong>Pt</strong><small>Platino</small></div>
+            <div class="elem transicion" style="grid-column: 11;" data-num="79" data-sym="Au" data-nom="Oro" data-cat="Metal Transicional"><span>79</span><strong>Au</strong><small>Oro</small></div>
+            <div class="elem transicion" style="grid-column: 12;" data-num="80" data-sym="Hg" data-nom="Mercurio" data-cat="Metal Transicional"><span>80</span><strong>Hg</strong><small>Mercurio</small></div>
+            <div class="elem metal-post" style="grid-column: 13;" data-num="81" data-sym="Tl" data-nom="Talio" data-cat="Metal Postransicional"><span>81</span><strong>Tl</strong><small>Talio</small></div>
+            <div class="elem metal-post" style="grid-column: 14;" data-num="82" data-sym="Pb" data-nom="Plomo" data-cat="Metal Postransicional"><span>82</span><strong>Pb</strong><small>Plomo</small></div>
+            <div class="elem metal-post" style="grid-column: 15;" data-num="83" data-sym="Bi" data-nom="Bismuto" data-cat="Metal Postransicional"><span>83</span><strong>Bi</strong><small>Bismuto</small></div>
+            <div class="elem metaloide" style="grid-column: 16;" data-num="84" data-sym="Po" data-nom="Polonio" data-cat="Metaloide"><span>84</span><strong>Po</strong><small>Polonio</small></div>
+            <div class="elem halogeno" style="grid-column: 17;" data-num="85" data-sym="At" data-nom="Astato" data-cat="Halógeno"><span>85</span><strong>At</strong><small>Astato</small></div>
+            <div class="elem gas-noble" style="grid-column: 18;" data-num="86" data-sym="Rn" data-nom="Radón" data-cat="Gas Noble"><span>86</span><strong>Rn</strong><small>Radón</small></div>
+
+            <!-- Fila 7 -->
+            <div class="elem alcalino" style="grid-column: 1;" data-num="87" data-sym="Fr" data-nom="Francio" data-cat="Alcalino"><span>87</span><strong>Fr</strong><small>Francio</small></div>
+            <div class="elem alcalinoterreo" style="grid-column: 2;" data-num="88" data-sym="Ra" data-nom="Radio" data-cat="Alcalinotérreo"><span>88</span><strong>Ra</strong><small>Radio</small></div>
+            <div class="elem actinido" style="grid-column: 3;" data-num="89" data-sym="Ac" data-nom="Actinio" data-cat="Actínido"><span>89</span><strong>Ac</strong><small>Actinio</small></div>
+            <div class="elem transicion" style="grid-column: 4;" data-num="104" data-sym="Rf" data-nom="Rutherfordio" data-cat="Metal Transicional"><span>104</span><strong>Rf</strong><small>Rutherfordio</small></div>
+            <div class="elem transicion" style="grid-column: 5;" data-num="105" data-sym="Db" data-nom="Dubnio" data-cat="Metal Transicional"><span>105</span><strong>Db</strong><small>Dubnio</small></div>
+            <div class="elem transicion" style="grid-column: 6;" data-num="106" data-sym="Sg" data-nom="Seaborgio" data-cat="Metal Transicional"><span>106</span><strong>Sg</strong><small>Seaborgio</small></div>
+            <div class="elem transicion" style="grid-column: 7;" data-num="107" data-sym="Bh" data-nom="Bohrio" data-cat="Metal Transicional"><span>107</span><strong>Bh</strong><small>Bohrio</small></div>
+            <div class="elem transicion" style="grid-column: 8;" data-num="108" data-sym="Hs" data-nom="Hassio" data-cat="Metal Transicional"><span>108</span><strong>Hs</strong><small>Hassio</small></div>
+            <div class="elem transicion" style="grid-column: 9;" data-num="109" data-sym="Mt" data-nom="Meitnerio" data-cat="Metal Transicional"><span>109</span><strong>Mt</strong><small>Meitnerio</small></div>
+            <div class="elem transicion" style="grid-column: 10;" data-num="110" data-sym="Ds" data-nom="Darmstadtio" data-cat="Metal Transicional"><span>110</span><strong>Ds</strong><small>Darmstadtio</small></div>
+            <div class="elem transicion" style="grid-column: 11;" data-num="111" data-sym="Rg" data-nom="Roentgenio" data-cat="Metal Transicional"><span>111</span><strong>Rg</strong><small>Roentgenio</small></div>
+            <div class="elem transicion" style="grid-column: 12;" data-num="112" data-sym="Cn" data-nom="Copernicio" data-cat="Metal Transicional"><span>112</span><strong>Cn</strong><small>Copernicio</small></div>
+            <div class="elem metal-post" style="grid-column: 13;" data-num="113" data-sym="Nh" data-nom="Nihonio" data-cat="Metal Postransicional"><span>113</span><strong>Nh</strong><small>Nihonio</small></div>
+            <div class="elem metal-post" style="grid-column: 14;" data-num="114" data-sym="Fl" data-nom="Flerovio" data-cat="Metal Postransicional"><span>114</span><strong>Fl</strong><small>Flerovio</small></div>
+            <div class="elem metal-post" style="grid-column: 15;" data-num="115" data-sym="Mc" data-nom="Moscovio" data-cat="Metal Postransicional"><span>115</span><strong>Mc</strong><small>Moscovio</small></div>
+            <div class="elem metal-post" style="grid-column: 16;" data-num="116" data-sym="Lv" data-nom="Livermorio" data-cat="Metal Postransicional"><span>116</span><strong>Lv</strong><small>Livermorio</small></div>
+            <div class="elem halogeno" style="grid-column: 17;" data-num="117" data-sym="Ts" data-nom="Teneso" data-cat="Halógeno"><span>117</span><strong>Ts</strong><small>Teneso</small></div>
+            <div class="elem gas-noble" style="grid-column: 18;" data-num="118" data-sym="Og" data-nom="Oganesón" data-cat="Gas Noble"><span>118</span><strong>Og</strong><small>Oganesón</small></div>
+        </div>
+
+        <!-- BLOQUE INFERIOR DE LANTÁNIDOS Y ACTÍNIDOS (SEPARADO) -->
+        <div class="f-block-grid">
+            <!-- Lantánidos (58 - 71) -->
+            <div class="elem lantanido" data-num="58" data-sym="Ce" data-nom="Cerio" data-cat="Lantánido"><span>58</span><strong>Ce</strong><small>Cerio</small></div>
+            <div class="elem lantanido" data-num="59" data-sym="Pr" data-nom="Praseodimio" data-cat="Lantánido"><span>59</span><strong>Pr</strong><small>Praseodimio</small></div>
+            <div class="elem lantanido" data-num="60" data-sym="Nd" data-nom="Neodimio" data-cat="Lantánido"><span>60</span><strong>Nd</strong><small>Neodimio</small></div>
+            <div class="elem lantanido" data-num="61" data-sym="Pm" data-nom="Prometio" data-cat="Lantánido"><span>61</span><strong>Pm</strong><small>Prometio</small></div>
+            <div class="elem lantanido" data-num="62" data-sym="Sm" data-nom="Samario" data-cat="Lantánido"><span>62</span><strong>Sm</strong><small>Samario</small></div>
+            <div class="elem lantanido" data-num="63" data-sym="Eu" data-nom="Europio" data-cat="Lantánido"><span>63</span><strong>Eu</strong><small>Europio</small></div>
+            <div class="elem lantanido" data-num="64" data-sym="Gd" data-nom="Gadolinio" data-cat="Lantánido"><span>64</span><strong>Gd</strong><small>Gadolinio</small></div>
+            <div class="elem lantanido" data-num="65" data-sym="Tb" data-nom="Terbio" data-cat="Lantánido"><span>65</span><strong>Tb</strong><small>Terbio</small></div>
+            <div class="elem lantanido" data-num="66" data-sym="Dy" data-nom="Disprosio" data-cat="Lantánido"><span>66</span><strong>Dy</strong><small>Disprosio</small></div>
+            <div class="elem lantanido" data-num="67" data-sym="Ho" data-nom="Holmio" data-cat="Lantánido"><span>67</span><strong>Ho</strong><small>Holmio</small></div>
+            <div class="elem lantanido" data-num="68" data-sym="Er" data-nom="Erbio" data-cat="Lantánido"><span>68</span><strong>Er</strong><small>Erbio</small></div>
+            <div class="elem lantanido" data-num="69" data-sym="Tm" data-nom="Tulio" data-cat="Lantánido"><span>69</span><strong>Tm</strong><small>Tulio</small></div>
+            <div class="elem lantanido" data-num="70" data-sym="Yb" data-nom="Iterbio" data-cat="Lantánido"><span>70</span><strong>Yb</strong><small>Iterbio</small></div>
+            <div class="elem lantanido" data-num="71" data-sym="Lu" data-nom="Lutecio" data-cat="Lantánido"><span>71</span><strong>Lu</strong><small>Lutecio</small></div>
+
+            <!-- Actínidos (90 - 103) -->
+            <div class="elem actinido" data-num="90" data-sym="Th" data-nom="Torio" data-cat="Actínido"><span>90</span><strong>Th</strong><small>Torio</small></div>
+            <div class="elem actinido" data-num="91" data-sym="Pa" data-nom="Protactinio" data-cat="Actínido"><span>91</span><strong>Pa</strong><small>Protactinio</small></div>
+            <div class="elem actinido" data-num="92" data-sym="U" data-nom="Uranio" data-cat="Actínido"><span>92</span><strong>U</strong><small>Uranio</small></div>
+            <div class="elem actinido" data-num="93" data-sym="Np" data-nom="Neptunio" data-cat="Actínido"><span>93</span><strong>Np</strong><small>Neptunio</small></div>
+            <div class="elem actinido" data-num="94" data-sym="Pu" data-nom="Plutonio" data-cat="Actínido"><span>94</span><strong>Pu</strong><small>Plutonio</small></div>
+            <div class="elem actinido" data-num="95" data-sym="Am" data-nom="Americio" data-cat="Actínido"><span>95</span><strong>Am</strong><small>Americio</small></div>
+            <div class="elem actinido" data-num="96" data-sym="Cm" data-nom="Curio" data-cat="Actínido"><span>96</span><strong>Cm</strong><small>Curio</small></div>
+            <div class="elem actinido" data-num="97" data-sym="Bk" data-nom="Berkelio" data-cat="Actínido"><span>97</span><strong>Bk</strong><small>Berkelio</small></div>
+            <div class="elem actinido" data-num="98" data-sym="Cf" data-nom="Californio" data-cat="Actínido"><span>98</span><strong>Cf</strong><small>Californio</small></div>
+            <div class="elem actinido" data-num="99" data-sym="Es" data-nom="Einstenio" data-cat="Actínido"><span>99</span><strong>Es</strong><small>Einstenio</small></div>
+            <div class="elem actinido" data-num="100" data-sym="Fm" data-nom="Fermio" data-cat="Actínido"><span>100</span><strong>Fm</strong><small>Fermio</small></div>
+            <div class="elem actinido" data-num="101" data-sym="Md" data-nom="Mendelevio" data-cat="Actínido"><span>101</span><strong>Md</strong><small>Mendelevio</small></div>
+            <div class="elem actinido" data-num="102" data-sym="No" data-nom="Nobelio" data-cat="Actínido"><span>102</span><strong>No</strong><small>Nobelio</small></div>
+            <div class="elem actinido" data-num="103" data-sym="Lr" data-nom="Lawrencio" data-cat="Actínido"><span>103</span><strong>Lr</strong><small>Lawrencio</small></div>
+        </div>
+    </div>
+
+    <!-- LEYENDA INTERACTIVA DE FAMILIAS EN LA PARTE INFERIOR -->
+    <div class="leyenda-quimica">
+        <div class="item-leyenda" data-target="alcalino"><span class="dot alcalino-bg"></span> Metales alcalinos</div>
+        <div class="item-leyenda" data-target="alcalinoterreo"><span class="dot alcalinoterreo-bg"></span> Metales alcalinotérreos</div>
+        <div class="item-leyenda" data-target="transicion"><span class="dot transicion-bg"></span> Metales transicionales</div>
+        <div class="item-leyenda" data-target="metal-post"><span class="dot metal-post-bg"></span> Metales postransicionales</div>
+        <div class="item-leyenda" data-target="metaloide"><span class="dot metaloide-bg"></span> Metaloides</div>
+        <div class="item-leyenda" data-target="no-metal"><span class="dot no-metal-bg"></span> No metales reactivos</div>
+        <div class="item-leyenda" data-target="gas-noble"><span class="dot gas-noble-bg"></span> Gases nobles</div>
+        <div class="item-leyenda" data-target="lantanido"><span class="dot lantanido-bg"></span> Lantánidos</div>
+        <div class="item-leyenda" data-target="actinido"><span class="dot actinido-bg"></span> Actínidos</div>
+    </div>
+</section>
+
+<!-- ESTILOS Y COMPORTAMIENTO INTERACTIVO -->
+<style>
+    /* RETÍCULA PRINCIPAL */
+    .tabla-periodica-grid {
+        display: grid;
+        grid-template-columns: repeat(18, minmax(46px, 1fr));
+        gap: 4px;
+        min-width: 860px;
+        margin-bottom: 14px;
+    }
+
+    /* BLOQUE DE LANTÁNIDOS/ACTÍNIDOS */
+    .f-block-grid {
+        display: grid;
+        grid-template-columns: repeat(14, minmax(46px, 1fr));
+        gap: 4px;
+        min-width: 860px;
+        margin-left: max(0px, calc((100% - 860px) / 18 * 3));
+        padding-top: 10px;
+        border-top: 1px dashed rgba(216, 180, 254, 0.2);
+    }
+
+    /* ESTILO DE CADA CASILLA/ELEMENTO */
+    .elem {
+        background: rgba(25, 18, 42, 0.8);
+        border: 1px solid rgba(216, 180, 254, 0.2);
+        border-radius: 6px;
+        padding: 3px 1px;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        transition: all 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 52px;
+        box-sizing: border-box;
+    }
+
+    .elem span {
+        font-size: 0.52rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1;
+        align-self: flex-start;
+        margin-left: 3px;
+    }
+
+    .elem strong {
+        font-size: 0.88rem;
+        color: #ffffff;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .elem small {
+        font-size: 0.48rem;
+        color: rgba(226, 232, 240, 0.8);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        line-height: 1;
+    }
+
+    /* EFECTO DE RESPLANDOR AL PASAR EL CURSOR POR UN ELEMENTO */
+    .elem:hover {
+        transform: scale(1.3);
+        z-index: 99;
+        border-color: #ffffff !important;
+        box-shadow: 0 0 20px rgba(216, 180, 254, 0.9), 0 0 10px #a855f7 !important;
+        background: #a855f7 !important;
+    }
+
+    .elem:hover strong, .elem:hover span, .elem:hover small {
+        color: #ffffff !important;
+    }
+
+    /* COLORES POR CATEGORÍA QUÍMICA FIDELIZADOS */
+    .alcalino { border-color: rgba(14, 116, 144, 0.6); background: rgba(14, 116, 144, 0.22); }
+    .alcalinoterreo { border-color: rgba(159, 18, 57, 0.6); background: rgba(159, 18, 57, 0.25); }
+    .transicion { border-color: rgba(88, 28, 135, 0.6); background: rgba(88, 28, 135, 0.25); }
+    .metal-post { border-color: rgba(20, 83, 45, 0.6); background: rgba(20, 83, 45, 0.25); }
+    .metaloide { border-color: rgba(133, 77, 14, 0.6); background: rgba(133, 77, 14, 0.25); }
+    .no-metal { border-color: rgba(30, 58, 138, 0.6); background: rgba(30, 58, 138, 0.25); }
+    .gas-noble { border-color: rgba(136, 19, 55, 0.6); background: rgba(136, 19, 55, 0.25); }
+    .lantanido { border-color: rgba(3, 105, 161, 0.6); background: rgba(3, 105, 161, 0.25); }
+    .actinido { border-color: rgba(124, 45, 18, 0.6); background: rgba(124, 45, 18, 0.25); }
+
+    /* ESTILOS DE LA LEYENDA */
+    .leyenda-quimica {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(216, 180, 254, 0.2);
+        justify-content: center;
+    }
+
+    .item-leyenda {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.78rem;
+        color: #cbd5e1;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .item-leyenda:hover {
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .alcalino-bg { background: #0e7490; }
+    .alcalinoterreo-bg { background: #9f1239; }
+    .transicion-bg { background: #581c87; }
+    .metal-post-bg { background: #14532d; }
+    .metaloide-bg { background: #854d0e; }
+    .no-metal-bg { background: #1e3a8a; }
+    .gas-noble-bg { background: #881337; }
+    .lantanido-bg { background: #0369a1; }
+    .actinido-bg { background: #7c2d12; }
+</style>
+
+<script>
+    // JS PARA EL VISOR DE DETALLES
+    document.querySelectorAll('.elem').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            document.getElementById('numAtomoVisor').innerText = '#' + el.dataset.num;
+            document.getElementById('nombreVisor').innerText = el.dataset.nom;
+            document.getElementById('categoriaVisor').innerText = '(' + el.dataset.cat + ')';
+            document.getElementById('simboloVisor').innerText = el.dataset.sym;
+        });
+    });
+
+    // ILUMINAR TODA UNA FAMILIA AL PASAR EL MOUSE SOBRE LA LEYENDA
+    document.querySelectorAll('.item-leyenda').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const target = item.dataset.target;
+            document.querySelectorAll('.elem').forEach(e => {
+                if (e.classList.contains(target)) {
+                    e.style.transform = 'scale(1.2)';
+                    e.style.boxShadow = '0 0 12px rgba(216, 180, 254, 0.9)';
+                    e.style.zIndex = '10';
+                } else {
+                    e.style.opacity = '0.3';
+                }
+            });
+        });
+
+        item.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.elem').forEach(e => {
+                e.style.transform = '';
+                e.style.boxShadow = '';
+                e.style.zIndex = '';
+                e.style.opacity = '1';
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- SECCIÓN INTERACTIVA: MOLÉCULA DE AGUA 3D + INFORMACIÓN -->
+<section style="
+    max-width: 1000px !important;
+    margin: 30px auto !important;
+    padding: 30px !important;
+    background: rgba(18, 12, 28, 0.75) !important;
+    border: 1px solid rgba(216, 180, 254, 0.3) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.15) !important;
+    box-sizing: border-box !important;
+">
+    <div style="
+        display: grid !important;
+        grid-template-columns: 1fr 1.2fr !important;
+        gap: 30px !important;
+        align-items: center !important;
+    ">
+        <!-- LADO IZQUIERDO: CONTENEDOR 3D DE LA MOLÉCULA -->
+        <div style="
+            position: relative !important;
+            width: 100% !important;
+            height: 320px !important;
+            background: radial-gradient(circle at center, rgba(168, 85, 247, 0.15) 0%, rgba(9, 5, 17, 0.8) 100%) !important;
+            border: 1px solid rgba(216, 180, 254, 0.2) !important;
+            border-radius: 16px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            overflow: hidden !important;
+        ">
+            <!-- CANVAS 3D INTERACTIVO -->
+            <canvas id="canvasMoleculaAgua" style="width: 100%; height: 100%; cursor: grab;"></canvas>
+            
+            <div style="
+                position: absolute !important;
+                bottom: 12px !important;
+                left: 15px !important;
+                font-size: 0.72rem !important;
+                color: #d8b4fe !important;
+                background: rgba(18, 12, 28, 0.8) !important;
+                padding: 4px 10px !important;
+                border-radius: 12px !important;
+                border: 1px solid rgba(216, 180, 254, 0.3) !important;
+            ">
+                🖱️ Arrastra para rotar en 3D
+            </div>
+        </div>
+
+        <!-- LADO DERECHO: TEXTO DE INFORMACIÓN -->
+        <div style="display: flex !important; flex-direction: column !important; justify-content: center !important;">
+            <span style="
+                color: #d8b4fe !important;
+                font-size: 0.78rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 1.5px !important;
+                text-transform: uppercase !important;
+                margin-bottom: 8px !important;
+            ">
+                Estructura Molecular
+            </span>
+
+            <h3 style="
+                color: #ffffff !important;
+                font-size: 1.6rem !important;
+                font-weight: 800 !important;
+                margin-bottom: 14px !important;
+            ">
+                La Molécula de Agua (H₂O)
+            </h3>
+
+            <p style="
+                color: #cbd5e1 !important;
+                font-size: 0.92rem !important;
+                line-height: 1.6 !important;
+                margin-bottom: 12px !important;
+            ">
+                El agua es una sustancia química fundamental compuesta por dos átomos de <strong style="color: #38bdf8;">Hidrógeno (H)</strong> unidos a un átomo central de <strong style="color: #f43f5e;">Oxígeno (O)</strong> mediante enlaces covalentes polares.
+            </p>
+
+            <p style="
+                color: #94a3b8 !important;
+                font-size: 0.88rem !important;
+                line-height: 1.6 !important;
+                margin-bottom: 16px !important;
+            ">
+                Su geometría angular fija de <strong style="color: #d8b4fe;">104.5°</strong> le otorga una polaridad única, permitiéndole formar puentes de hidrógeno. Esta característica la convierte en el "solvente universal" indispensable para la vida.
+            </p>
+
+            <!-- DATOS RÁPIDOS EN MINI TARJETAS -->
+            <div style="display: flex !important; gap: 12px !important;">
+                <div style="
+                    background: rgba(192, 132, 252, 0.1) !important;
+                    border: 1px solid rgba(216, 180, 254, 0.25) !important;
+                    padding: 8px 14px !important;
+                    border-radius: 10px !important;
+                    flex: 1 !important;
+                ">
+                    <div style="color: #d8b4fe; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Masa Molar</div>
+                    <div style="color: #ffffff; font-size: 0.95rem; font-weight: 800;">18.015 g/mol</div>
+                </div>
+
+                <div style="
+                    background: rgba(192, 132, 252, 0.1) !important;
+                    border: 1px solid rgba(216, 180, 254, 0.25) !important;
+                    padding: 8px 14px !important;
+                    border-radius: 10px !important;
+                    flex: 1 !important;
+                ">
+                    <div style="color: #d8b4fe; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Ángulo Covalente</div>
+                    <div style="color: #ffffff; font-size: 0.95rem; font-weight: 800;">104.5°</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SCRIPT 3D RENDERIZADOR DE LA MOLÉCULA -->
+<script>
+(function() {
+    const canvas = document.getElementById('canvasMoleculaAgua');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Átomos del H2O (x, y, z, radio, color, etiqueta)
+    let atoms = [
+        { x: 0, y: 0, z: 0, r: 38, color: '#f43f5e', label: 'O' },       // Oxígeno (Rojo Neón)
+        { x: -75, y: 50, z: 20, r: 22, color: '#38bdf8', label: 'H' },   // Hidrógeno 1 (Azul Celeste)
+        { x: 75, y: 50, z: -20, r: 22, color: '#38bdf8', label: 'H' }    // Hidrógeno 2 (Azul Celeste)
+    ];
+
+    let angleX = 0.008;
+    let angleY = 0.012;
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+
+    canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mouseup', () => isDragging = false);
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - previousMousePosition.x;
+        const deltaY = e.clientY - previousMousePosition.y;
+
+        rotateY(deltaX * 0.01);
+        rotateX(deltaY * 0.01);
+
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    function rotateX(angle) {
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        atoms.forEach(atom => {
+            let y = atom.y * cos - atom.z * sin;
+            let z = atom.y * sin + atom.z * cos;
+            atom.y = y;
+            atom.z = z;
+        });
+    }
+
+    function rotateY(angle) {
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        atoms.forEach(atom => {
+            let x = atom.x * cos + atom.z * sin;
+            let z = -atom.x * sin + atom.z * cos;
+            atom.x = x;
+            atom.z = z;
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+
+        if (!isDragging) {
+            rotateY(angleY);
+            rotateX(angleX);
+        }
+
+        // Ordenar átomos por profundidad Z para renderizado realista
+        let sortedAtoms = [...atoms].sort((a, b) => a.z - b.z);
+
+        // Dibujar enlaces (barras entre átomos)
+        atoms.slice(1).forEach(hAtom => {
+            ctx.beginPath();
+            ctx.moveTo(cx + atoms[0].x, cy + atoms[0].y);
+            ctx.lineTo(cx + hAtom.x, cy + hAtom.y);
+            ctx.strokeStyle = 'rgba(216, 180, 254, 0.6)';
+            ctx.lineWidth = 8;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        });
+
+        // Dibujar esferas 3D con sombras y brillos
+        sortedAtoms.forEach(atom => {
+            const scale = (atom.z + 200) / 200;
+            const screenX = cx + atom.x;
+            const screenY = cy + atom.y;
+            const radius = Math.max(8, atom.r * scale);
+
+            // Gradiente de volumen 3D
+            let grad = ctx.createRadialGradient(
+                screenX - radius * 0.3, screenY - radius * 0.3, radius * 0.1,
+                screenX, screenY, radius
+            );
+            grad.addColorStop(0, '#ffffff');
+            grad.addColorStop(0.3, atom.color);
+            grad.addColorStop(1, '#000000');
+
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.shadowColor = atom.color;
+            ctx.shadowBlur = 15;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Texto dentro del átomo
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${Math.max(10, 14 * scale)}px Montserrat, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(atom.label, screenX, screenY);
+        });
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+})();
+</script>
+
+
+
+
+
+
+<!-- TARJETA ESTRUCTURA ATÓMICA DE HELIO (He) -->
+<div class="tarjeta-elemento-3d">
+    <!-- COLUMNA IZQUIERDA: VISOR 3D -->
+    <div class="columna-visor-3d">
+        <div class="escena-3d">
+            <div class="atomo" id="atomoHelio">
+                <!-- NÚCLEO (2 Protones + 2 Neutrones) -->
+                <div class="nucleo">
+                    <div class="particula proton p1"><span>p+</span></div>
+                    <div class="particula proton p2"><span>p+</span></div>
+                    <div class="particula neutron n1"><span>n0</span></div>
+                    <div class="particula neutron n2"><span>n0</span></div>
+                </div>
+
+                <!-- ÓRBITAS Y ELECTRONES -->
+                <div class="orbita orbita-1">
+                    <div class="electron e1"><span>e-</span></div>
+                </div>
+                <div class="orbita orbita-2">
+                    <div class="electron e2"><span>e-</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="etiqueta-instruccion">
+            <span>🖱️ Arrastra para rotar en 3D</span>
+        </div>
+    </div>
+
+    <!-- COLUMNA DERECHA: INFORMACIÓN -->
+    <div class="columna-informacion">
+        <span class="subtitulo-seccion">ESTRUCTURA ATÓMICA</span>
+        <h2 class="titulo-elemento">El Átomo de Helio (He)</h2>
+        
+        <p class="descripcion-elemento">
+            El helio es el segundo elemento más ligero y abundante en el universo. Se trata de un 
+            <strong class="texto-destacado">gas noble</strong> incoloro e inodoro, caracterizado por su total inercia química gracias a que posee su única capa electrónica completamente llena ($1s^2$).
+        </p>
+        
+        <p class="descripcion-elemento">
+            Su núcleo está compuesto por <strong class="texto-proton">dos protones</strong> y <strong class="texto-neutron">dos neutrones</strong>, rodeado por una nube esférica de <strong class="texto-electron">dos electrones</strong> de valencia.
+        </p>
+
+        <!-- TARJETAS DE DATOS RÁPIDOS -->
+        <div class="grid-datos">
+            <div class="tarjeta-dato">
+                <span class="etiqueta-dato">MASA ATÓMICA</span>
+                <span class="valor-dato">4.0026 u</span>
+            </div>
+            <div class="tarjeta-dato">
+                <span class="etiqueta-dato">NÚMERO ATÓMICO (Z)</span>
+                <span class="valor-dato">2</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* CONTENEDOR PRINCIPAL DOS COLUMNAS */
+.tarjeta-elemento-3d {
+    background: #0d0a18;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    max-width: 950px;
+    margin: 20px auto;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #ffffff;
+}
+
+/* COLUMNA IZQUIERDA: VISOR */
+.columna-visor-3d {
+    flex: 1;
+    background: radial-gradient(circle at center, #18112d 0%, #080511 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    height: 380px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.escena-3d {
+    width: 260px;
+    height: 260px;
+    perspective: 800px;
+}
+
+.atomo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotarEscena 20s linear infinite;
+}
+
+@keyframes rotarEscena {
+    0% { transform: rotateX(20deg) rotateY(0deg); }
+    100% { transform: rotateX(20deg) rotateY(360deg); }
+}
+
+/* NÚCLEO */
+.nucleo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    margin-top: -22px;
+    margin-left: -22px;
+    transform-style: preserve-3d;
+}
+
+.particula {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: bold;
+    box-shadow: inset -2px -2px 6px rgba(0,0,0,0.6), 0 0 10px rgba(255,255,255,0.2);
+}
+
+.proton {
+    background: radial-gradient(circle at 30% 30%, #ff5555, #990000);
+    color: #fff;
+}
+
+.neutron {
+    background: radial-gradient(circle at 30% 30%, #aaaaaa, #444444);
+    color: #fff;
+}
+
+.p1 { transform: translate3d(-6px, -6px, 6px); }
+.p2 { transform: translate3d(6px, 6px, -6px); }
+.n1 { transform: translate3d(6px, -6px, 6px); }
+.n2 { transform: translate3d(-6px, 6px, -6px); }
+
+/* ÓRBITAS Y ELECTRONES */
+.orbita {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    border: 1.5px dashed rgba(56, 189, 248, 0.4);
+    border-radius: 50%;
+    transform-style: preserve-3d;
+}
+
+.orbita-1 { transform: rotateX(70deg) rotateY(-20deg); }
+.orbita-2 { transform: rotateX(70deg) rotateY(70deg); }
+
+.electron {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    margin-left: -7px;
+    background: radial-gradient(circle at 30% 30%, #38bdf8, #0284c7);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px #38bdf8;
+}
+
+.e1 { animation: orbitar1 2s linear infinite; }
+.e2 { animation: orbitar2 2.3s linear infinite reverse; }
+
+@keyframes orbitar1 {
+    from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+}
+
+@keyframes orbitar2 {
+    from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+}
+
+.etiqueta-instruccion {
+    position: absolute;
+    bottom: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: #a1a1aa;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* COLUMNA DERECHA: TEXTO E INFO */
+.columna-informacion {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitulo-seccion {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #c084fc;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.titulo-elemento {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+    color: #ffffff;
+}
+
+.descripcion-elemento {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #a1a1aa;
+    margin: 0 0 12px 0;
+}
+
+.texto-destacado { color: #f472b6; }
+.texto-proton { color: #f87171; }
+.texto-neutron { color: #cbd5e1; }
+.texto-electron { color: #38bdf8; }
+
+/* GRID TARJETAS INFERIORES */
+.grid-datos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.tarjeta-dato {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.etiqueta-dato {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #71717a;
+    margin-bottom: 4px;
+}
+
+.valor-dato {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* RESPONSIVO PARA PANTALLAS PEQUEÑAS */
+@media (max-width: 768px) {
+    .tarjeta-elemento-3d {
+        flex-direction: column;
+    }
+    .columna-visor-3d {
+        width: 100%;
+    }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
