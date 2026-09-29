@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección: Sociales - Nodus</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ENCABEZADO Y PORTADA DE SOCIALES */
+        .portada-sociales {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(28, 6, 12, 0.88)), 
+                        url('portada-sociales.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 20px 40px;
+        }
+
+        /* NAVEGACIÓN SUPERIOR */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* BOTÓN VOLVER CON ESTILO ROJO / CARMESÍ */
+        .btn-volver {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(225, 29, 72, 0.2);
+            border: 1px solid rgba(244, 63, 94, 0.6);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            background: #e11d48;
+            box-shadow: 0 0 15px rgba(225, 29, 72, 0.6);
+            transform: translateX(-3px);
+        }
+
+        /* MENÚ DE ÁREAS */
+        .menu-navegacion {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-navegacion a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .menu-navegacion a:hover {
+            color: #ffffff;
+        }
+
+        /* ÁREA ACTIVA: SOCIALES (ROJO / CARMESÍ NEÓN) */
+        .menu-navegacion a.activo-sociales {
+            color: #f43f5e !important;
+            text-shadow: 0 0 12px rgba(244, 63, 94, 0.9),
+                         0 0 20px rgba(225, 29, 72, 0.7);
+            border-bottom: 2px solid #f43f5e;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA SOCIALES -->
+    <header class="portada-sociales">
+        <nav class="nav-header">
+            <!-- BOTÓN VOLVER -->
+            <a href="inicio.html" class="btn-volver">← Volver</a>
+
+            <!-- MENÚ DE MATERIAS -->
+            <ul class="menu-navegacion">
+                <li><a href="inicio.html">INICIO</a></li>
+                <li><a href="biologia.html">BIOLOGÍA</a></li>
+                <li><a href="quimica.html">QUÍMICA</a></li>
+                <li><a href="fisica.html">FÍSICA</a></li>
+                <li><a href="matematicas.html">MATEMÁTICAS</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="sociales.html" class="activo-sociales">SOCIALES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+</body>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (ROJO NEÓN) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(30, 10, 10, 0.9); border: 1px solid #ef4444; color: #f87171; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(239, 68, 68, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Rojo brillante encendido
+                btn.style.borderColor = "#ff4d4d";
+                btn.style.color = "#ff4d4d";
+                btn.style.boxShadow = "0 0 18px rgba(255, 77, 77, 0.8)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Rojo carmesí estándar
+            btn.style.borderColor = "#ef4444";
+            btn.style.color = "#f87171";
+            btn.style.boxShadow = "0 0 12px rgba(239, 68, 68, 0.4)";
+        }
+    }
+</script>	
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sección: Física - Nodus</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ENCABEZADO Y PORTADA DE FÍSICA */
+        .portada-fisica {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(6, 18, 36, 0.88)), 
+                        url('portada-fisica.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 20px 40px;
+        }
+
+        /* NAVEGACIÓN SUPERIOR */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* BOTÓN VOLVER CON ESTILO AZUL */
+        .btn-volver {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(96, 165, 250, 0.6);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            backdrop-filter: blur(6px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            background: #2563eb;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.6);
+            transform: translateX(-3px);
+        }
+
+        /* MENÚ DE ÁREAS */
+        .menu-navegacion {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-navegacion a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .menu-navegacion a:hover {
+            color: #ffffff;
+        }
+
+        /* ÁREA ACTIVA: FÍSICA (AZUL NEÓN) */
+        .menu-navegacion a.activo-fisica {
+            color: #60a5fa !important;
+            text-shadow: 0 0 12px rgba(96, 165, 250, 0.9),
+                         0 0 20px rgba(37, 99, 235, 0.7);
+            border-bottom: 2px solid #60a5fa;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<script>
+    // Coloca tu clave API de Gemini aquí
+    const GEMINI_API_KEY = "TU_API_KEY_AQUI";
+
+    function toggleIAChat() {
+        const chat = document.getElementById('ia-chat-modal');
+        chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function handleIAKeyPress(e) {
+        if (e.key === 'Enter') sendIAMessage();
+    }
+
+    async function sendIAMessage() {
+        const input = document.getElementById('ia-user-input');
+        const container = document.getElementById('ia-messages-container');
+        const prompt = input.value.trim();
+        if (!prompt) return;
+
+        // 1. Agregar el mensaje escrito por el usuario
+        const userMsg = document.createElement('div');
+        userMsg.className = 'ia-msg user';
+        userMsg.textContent = prompt;
+        container.appendChild(userMsg);
+
+        input.value = '';
+        container.scrollTop = container.scrollHeight;
+
+        // 2. Crear mensaje temporal de "Cargando..." para la respuesta del bot
+        const botMsg = document.createElement('div');
+        botMsg.className = 'ia-msg bot';
+        botMsg.textContent = 'Pensando respuesta...';
+        container.appendChild(botMsg);
+        container.scrollTop = container.scrollHeight;
+
+        try {
+            // 3. Petición HTTP POST a la API de Gemini
+            const response = await fetch(`[https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$](https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$){GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }]
+                })
+            });
+
+            const data = await response.json();
+
+            // 4. Extraer la respuesta e insertarla en el mensaje
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                botMsg.textContent = data.candidates[0].content.parts[0].text;
+            } else {
+                botMsg.textContent = 'No se obtuvo respuesta del asistente.';
+            }
+        } catch (error) {
+            console.error("Error API Gemini:", error);
+            botMsg.textContent = 'Error de conexión con el servicio de Inteligencia Artificial.';
+        }
+
+        container.scrollTop = container.scrollHeight;
+    }
+</script>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodus - Plataforma Educativa Cosmológica</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #030712;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* PORTADA / HERO PRINCIPAL DE INICIO */
+        .portada-inicio {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* Azul oscuro profundo con degradado y combinación celeste */
+            background: linear-gradient(135deg, rgba(3, 7, 18, 0.85) 0%, rgba(15, 23, 42, 0.9) 50%, rgba(30, 58, 138, 0.85) 100%), 
+                        url('nebulosa1.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 40px;
+        }
+
+        /* NAVEGACIÓN SUPERIOR */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+        }
+
+        /* MENÚ DE MATERIAS */
+        .menu-navegacion {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+        }
+
+        .menu-navegacion a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .menu-navegacion a:hover {
+            color: #38bdf8;
+        }
+
+        /* ÁREA ACTIVA: INICIO (AZUL CELESTE NEÓN) */
+        .menu-navegacion a.activo-inicio {
+            color: #38bdf8 !important;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.9),
+                         0 0 20px rgba(37, 99, 235, 0.7);
+            border-bottom: 2px solid #38bdf8;
+            padding-bottom: 4px;
+        }
+
+        /* CONTENIDO CENTRAL */
+        .hero-content {
+            margin: auto;
+            text-align: center;
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 30%, #38bdf8 70%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* ESTILOS DEL ASISTENTE VIRTUAL (AZUL OSCURO Y CELESTE) */
+        #ia-floating-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #ia-floating-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.7);
+        }
+
+        #ia-chat-modal {
+            position: fixed;
+            bottom: 85px;
+            right: 25px;
+            width: 350px;
+            height: 450px;
+            background: #030712;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            z-index: 99999;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .ia-header {
+            background: #0f172a;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .ia-close-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .ia-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ia-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .ia-msg.bot {
+            background: rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .ia-msg.user {
+            background: #2563eb;
+            color: #ffffff;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .ia-input-container {
+            padding: 12px;
+            background: #0f172a;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .ia-input-container input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 10px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .ia-input-container input:focus {
+            border-color: #38bdf8;
+        }
+
+        .ia-input-container button {
+            background: #0284c7;
+            border: none;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+   
+
+    <!-- BOTÓN FLOTANTE DEL ASISTENTE DE IA -->
+    <button id="ia-floating-btn" onclick="toggleIAChat()">
+        🤖 Asistente NODUS
+    </button>
+
+    <!-- VENTANA DE CHAT -->
+    <div id="ia-chat-modal">
+        <div class="ia-header">
+            <span>Asistente NODUS</span>
+            <button class="ia-close-btn" onclick="toggleIAChat()">✕</button>
+        </div>
+        <div class="ia-messages" id="ia-messages-container">
+            <div class="ia-msg bot">
+                ¡Hola! Soy tu asistente de NODUS. ¿En qué puedo ayudarte hoy sobre tus materias?
+            </div>
+        </div>
+        <div class="ia-input-container">
+            <input type="text" id="ia-user-input" placeholder="Escribe tu duda..." onkeydown="handleIAKeyPress(event)">
+            <button onclick="sendIAMessage()">➤</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CONEXIÓN CON GEMINI API -->
+    <script>
+        const GEMINI_API_KEY = "TU_API_KEY_AQUI";
+
+        function toggleIAChat() {
+            const chat = document.getElementById('ia-chat-modal');
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function handleIAKeyPress(e) {
+            if (e.key === 'Enter') sendIAMessage();
+        }
+
+        async function sendIAMessage() {
+            const input = document.getElementById('ia-user-input');
+            const container = document.getElementById('ia-messages-container');
+            const prompt = input.value.trim();
+            if (!prompt) return;
+
+            const userMsg = document.createElement('div');
+            userMsg.className = 'ia-msg user';
+            userMsg.textContent = prompt;
+            container.appendChild(userMsg);
+
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            const botMsg = document.createElement('div');
+            botMsg.className = 'ia-msg bot';
+            botMsg.textContent = 'Pensando respuesta...';
+            container.appendChild(botMsg);
+            container.scrollTop = container.scrollHeight;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    botMsg.textContent = data.candidates[0].content.parts[0].text;
+                } else {
+                    botMsg.textContent = 'No se obtuvo respuesta del asistente.';
+                }
+            } catch (error) {
+                console.error("Error API Gemini:", error);
+                botMsg.textContent = 'Error de conexión con el servicio de Inteligencia Artificial.';
+            }
+
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodus - Plataforma Educativa Cosmológica</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #030712;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* PORTADA / HERO PRINCIPAL DE INICIO */
+        .portada-inicio {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* Degradado en azul oscuro con la imagen portada.png */
+            background: linear-gradient(135deg, rgba(3, 7, 18, 0.82) 0%, rgba(15, 23, 42, 0.88) 50%, rgba(30, 58, 138, 0.82) 100%), 
+                        url('portada.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 40px;
+        }
+
+        /* NAVEGACIÓN SUPERIOR */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+        }
+
+        /* MENÚ DE MATERIAS */
+        .menu-navegacion {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+        }
+
+        .menu-navegacion a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .menu-navegacion a:hover {
+            color: #38bdf8;
+        }
+
+        /* ÁREA ACTIVA: INICIO (AZUL CELESTE NEÓN) */
+        .menu-navegacion a.activo-inicio {
+            color: #38bdf8 !important;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.9),
+                         0 0 20px rgba(37, 99, 235, 0.7);
+            border-bottom: 2px solid #38bdf8;
+            padding-bottom: 4px;
+        }
+
+        /* CONTENIDO CENTRAL */
+        .hero-content {
+            margin: auto;
+            text-align: center;
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 30%, #38bdf8 70%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* ESTILOS DEL ASISTENTE VIRTUAL (AZUL OSCURO Y CELESTE) */
+        #ia-floating-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #ia-floating-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.7);
+        }
+
+        #ia-chat-modal {
+            position: fixed;
+            bottom: 85px;
+            right: 25px;
+            width: 350px;
+            height: 450px;
+            background: #030712;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            z-index: 99999;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .ia-header {
+            background: #0f172a;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .ia-close-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .ia-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ia-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .ia-msg.bot {
+            background: rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .ia-msg.user {
+            background: #2563eb;
+            color: #ffffff;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .ia-input-container {
+            padding: 12px;
+            background: #0f172a;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .ia-input-container input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 10px 14px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .ia-input-container input:focus {
+            border-color: #38bdf8;
+        }
+
+        .ia-input-container button {
+            background: #0284c7;
+            border: none;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOTÓN FLOTANTE DEL ASISTENTE DE IA -->
+    <button id="ia-floating-btn" onclick="toggleIAChat()">
+        🤖 Asistente NODUS
+    </button>
+
+    <!-- VENTANA DE CHAT -->
+    <div id="ia-chat-modal">
+        <div class="ia-header">
+            <span>Asistente NODUS</span>
+            <button class="ia-close-btn" onclick="toggleIAChat()">✕</button>
+        </div>
+        <div class="ia-messages" id="ia-messages-container">
+            <div class="ia-msg bot">
+                ¡Hola! Soy tu asistente de NODUS. ¿En qué puedo ayudarte hoy sobre tus materias?
+            </div>
+        </div>
+        <div class="ia-input-container">
+            <input type="text" id="ia-user-input" placeholder="Escribe tu duda..." onkeydown="handleIAKeyPress(event)">
+            <button onclick="sendIAMessage()">➤</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CONEXIÓN CON GEMINI API -->
+    <script>
+        const GEMINI_API_KEY = "TU_API_KEY_AQUI";
+
+        function toggleIAChat() {
+            const chat = document.getElementById('ia-chat-modal');
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function handleIAKeyPress(e) {
+            if (e.key === 'Enter') sendIAMessage();
+        }
+
+        async function sendIAMessage() {
+            const input = document.getElementById('ia-user-input');
+            const container = document.getElementById('ia-messages-container');
+            const prompt = input.value.trim();
+            if (!prompt) return;
+
+            const userMsg = document.createElement('div');
+            userMsg.className = 'ia-msg user';
+            userMsg.textContent = prompt;
+            container.appendChild(userMsg);
+
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            const botMsg = document.createElement('div');
+            botMsg.className = 'ia-msg bot';
+            botMsg.textContent = 'Pensando respuesta...';
+            container.appendChild(botMsg);
+            container.scrollTop = container.scrollHeight;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    botMsg.textContent = data.candidates[0].content.parts[0].text;
+                } else {
+                    botMsg.textContent = 'No se obtuvo respuesta del asistente.';
+                }
+            } catch (error) {
+                console.error("Error API Gemini:", error);
+                botMsg.textContent = 'Error de conexión con el servicio de Inteligencia Artificial.';
+            }
+
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA -->
+
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(10, 14, 26, 0.9); border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 10px rgba(0,255,204,0.3); backdrop-filter: blur(5px); transition: all 0.3s;">
+
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+
+    </button>
+
+</div>
+
+
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+
+<audio id="mi-audio-local" loop preload="auto">
+
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+
+    <source src="musica-espacial.mp4" type="audio/mp4">
+
+</audio>
+
+
+
+<script>
+
+    let estaSonando = false;
+
+    const audio = document.getElementById("mi-audio-local");
+
+    const textoBtn = document.getElementById("texto-btn-musica");
+
+    const btn = document.getElementById("btn-musica-espacial");
+
+
+
+    // Volumen fijado en 0.35
+
+    audio.volume = 0.35;
+
+
+
+    function conmutarAmbienteEspacial() {
+
+        if (!estaSonando) {
+
+            audio.play().then(() => {
+
+                estaSonando = true;
+
+                textoBtn.textContent = "Música Espacial: ON";
+
+                btn.style.borderColor = "#ffcc00";
+
+                btn.style.color = "#ffcc00";
+
+                btn.style.boxShadow = "0 0 15px rgba(255,204,0,0.5)";
+
+            }).catch(error => {
+
+                console.error("Error al reproducir el audio:", error);
+
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+
+            });
+
+        } else {
+
+            audio.pause();
+
+            audio.currentTime = 0; // Reinicia la canción al inicio
+
+            estaSonando = false;
+
+
+
+            textoBtn.textContent = "Música Espacial: OFF";
+
+            btn.style.borderColor = "#00ffcc";
+
+            btn.style.color = "#00ffcc";
+
+            btn.style.boxShadow = "0 0 10px rgba(0,255,204,0.3)";
+
+        }
+
+    }
+
+</script>
+
+
+
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (NARANJA NEÓN) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(28, 12, 4, 0.9); border: 1px solid #f97316; color: #fb923c; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(249, 115, 22, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Naranja neón intenso encendido
+                btn.style.borderColor = "#ffaa00";
+                btn.style.color = "#ffaa00";
+                btn.style.boxShadow = "0 0 18px rgba(255, 170, 0, 0.7)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Naranja fuego estándar
+            btn.style.borderColor = "#f97316";
+            btn.style.color = "#fb923c";
+            btn.style.boxShadow = "0 0 12px rgba(249, 115, 22, 0.4)";
+        }
+    }
+</script>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (MORADO NEÓN) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(20, 8, 36, 0.9); border: 1px solid #a855f7; color: #c084fc; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(168, 85, 247, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Violeta neón intenso encendido
+                btn.style.borderColor = "#e879f9";
+                btn.style.color = "#e879f9";
+                btn.style.boxShadow = "0 0 18px rgba(232, 121, 249, 0.7)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Morado violeta estándar
+            btn.style.borderColor = "#a855f7";
+            btn.style.color = "#c084fc";
+            btn.style.boxShadow = "0 0 12px rgba(168, 85, 247, 0.4)";
+        }
+    }
+</script>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (AZUL NEÓN) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(6, 18, 36, 0.9); border: 1px solid #3b82f6; color: #60a5fa; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(59, 130, 246, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Celeste neón brillante encendido
+                btn.style.borderColor = "#38bdf8";
+                btn.style.color = "#38bdf8";
+                btn.style.boxShadow = "0 0 18px rgba(56, 189, 248, 0.7)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Azul eléctrico estándar
+            btn.style.borderColor = "#3b82f6";
+            btn.style.color = "#60a5fa";
+            btn.style.boxShadow = "0 0 12px rgba(59, 130, 246, 0.4)";
+        }
+    }
+</script>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (BLANCO CON TOQUES CELESTES) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(15, 23, 42, 0.85); border: 1px solid #bae6fd; color: #f0f9ff; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(186, 230, 253, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Celeste brillante neón con resplandor intenso
+                btn.style.borderColor = "#38bdf8";
+                btn.style.color = "#ffffff";
+                btn.style.boxShadow = "0 0 18px rgba(56, 189, 248, 0.8), 0 0 8px rgba(255, 255, 255, 0.6)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Blanco glacial suave con borde celeste pastel
+            btn.style.borderColor = "#bae6fd";
+            btn.style.color = "#f0f9ff";
+            btn.style.boxShadow = "0 0 12px rgba(186, 230, 253, 0.4)";
+        }
+    }
+</script>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (MARRÓN BRONCE / DORADO) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(26, 16, 8, 0.9); border: 1px solid #d97706; color: #f59e0b; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(217, 119, 6, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Dorado cobrizo brillante encendido
+                btn.style.borderColor = "#fbbf24";
+                btn.style.color = "#fbbf24";
+                btn.style.boxShadow = "0 0 18px rgba(251, 191, 36, 0.7)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Marrón bronce estándar
+            btn.style.borderColor = "#d97706";
+            btn.style.color = "#f59e0b";
+            btn.style.boxShadow = "0 0 12px rgba(217, 119, 6, 0.4)";
+        }
+    }
+</script>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA (ROJO NEÓN) -->
+<div id="control-ambiente-espacial" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;">
+    <button id="btn-musica-espacial" onclick="conmutarAmbienteEspacial()" style="background: rgba(30, 10, 10, 0.9); border: 1px solid #ef4444; color: #f87171; padding: 10px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(239, 68, 68, 0.4); backdrop-filter: blur(5px); transition: all 0.3s ease;">
+        <span>🛸</span> <span id="texto-btn-musica">Música Espacial: OFF</span>
+    </button>
+</div>
+
+<!-- ELEMENTO DE AUDIO APUNTANDO A TU ARCHIVO -->
+<audio id="mi-audio-local" loop preload="auto">
+    <source src="musica-espacial.mp3" type="audio/mpeg">
+    <source src="musica-espacial.mp4" type="audio/mp4">
+</audio>
+
+<script>
+    let estaSonando = false;
+    const audio = document.getElementById("mi-audio-local");
+    const textoBtn = document.getElementById("texto-btn-musica");
+    const btn = document.getElementById("btn-musica-espacial");
+
+    // Volumen fijado en 0.35
+    audio.volume = 0.35;
+
+    function conmutarAmbienteEspacial() {
+        if (!estaSonando) {
+            audio.play().then(() => {
+                estaSonando = true;
+                textoBtn.textContent = "Música Espacial: ON";
+                // Estado ACTIVO (ON): Rojo brillante encendido
+                btn.style.borderColor = "#ff4d4d";
+                btn.style.color = "#ff4d4d";
+                btn.style.boxShadow = "0 0 18px rgba(255, 77, 77, 0.8)";
+            }).catch(error => {
+                console.error("Error al reproducir el audio:", error);
+                alert("Asegúrate de haber movido el archivo de audio dentro de la carpeta Proyecto-Cosmos y llamarlo 'musica-espacial.mp3'");
+            });
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reinicia la canción al inicio
+            estaSonando = false;
+
+            textoBtn.textContent = "Música Espacial: OFF";
+            // Estado INACTIVO (OFF): Rojo carmesí estándar
+            btn.style.borderColor = "#ef4444";
+            btn.style.color = "#f87171";
+            btn.style.boxShadow = "0 0 12px rgba(239, 68, 68, 0.4)";
+        }
+    }
+</script>
+
+<!-- ASISTENTE IA EN LA ESQUINA INFERIOR -->
+
+<button id="ia-floating-btn" onclick="toggleIAChat()">
+
+    <span>🤖</span> Asistente NODUS
+
+</button>
+
+
+
+<div id="ia-chat-modal">
+
+    <div class="ia-header">
+
+        <span>🤖 Asistente Nodus Aletheia</span>
+
+        <button class="ia-close-btn" onclick="toggleIAChat()">✕</button>
+
+    </div>
+
+    <div class="ia-messages" id="ia-messages-container">
+
+        <div class="ia-msg bot">
+
+            ¡Hola! Soy la Inteligencia Artificial de Nodus Aletheia. ¿Tienes alguna pregunta sobre tu curso?
+
+        </div>
+
+    </div>
+
+    <div class="ia-input-container">
+
+        <input type="text" id="ia-user-input" placeholder="Escribe tu consulta..." onkeypress="handleIAKeyPress(event)">
+
+        <button onclick="sendIAMessage()">➤</button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ESTILOS CSS DEL CHAT -->
+
+<style>
+
+#ia-floating-btn {
+
+    position: fixed;
+
+    bottom: 25px;
+
+    right: 25px;
+
+    background: linear-gradient(135deg, #a855f7, #6366f1);
+
+    color: #ffffff;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 30px;
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    transition: transform 0.2s;
+
+}
+
+
+
+#ia-floating-btn:hover {
+
+    transform: translateY(-3px);
+
+}
+
+
+
+#ia-chat-modal {
+
+    position: fixed;
+
+    bottom: 85px;
+
+    right: 25px;
+
+    width: 350px;
+
+    height: 450px;
+
+    background: #0d0a18;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 16px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+
+    z-index: 99999;
+
+    display: none;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    font-family: system-ui, -apple-system, sans-serif;
+
+}
+
+
+
+.ia-header {
+
+    background: #18112d;
+
+    padding: 14px 18px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    font-size: 0.9rem;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+}
+
+
+
+.ia-close-btn {
+
+    background: transparent;
+
+    border: none;
+
+    color: #a1a1aa;
+
+    font-size: 1.1rem;
+
+    cursor: pointer;
+
+}
+
+
+
+.ia-messages {
+
+    flex: 1;
+
+    padding: 15px;
+
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+
+.ia-msg {
+
+    max-width: 85%;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    font-size: 0.85rem;
+
+    line-height: 1.4;
+
+    word-break: break-word;
+
+}
+
+
+
+.ia-msg.bot {
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #e4e4e7;
+
+    align-self: flex-start;
+
+    border-bottom-left-radius: 2px;
+
+}
+
+
+
+.ia-msg.user {
+
+    background: #a855f7;
+
+    color: #ffffff;
+
+    align-self: flex-end;
+
+    border-bottom-right-radius: 2px;
+
+}
+
+
+
+.ia-input-container {
+
+    padding: 12px;
+
+    background: #18112d;
+
+    display: flex;
+
+    gap: 8px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+}
+
+
+
+.ia-input-container input {
+
+    flex: 1;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    padding: 10px 14px;
+
+    border-radius: 20px;
+
+    color: #ffffff;
+
+    font-size: 0.85rem;
+
+    outline: none;
+
+}
+
+
+
+.ia-input-container button {
+
+    background: #a855f7;
+
+    border: none;
+
+    color: #ffffff;
+
+    width: 36px;
+
+    height: 36px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+}
+
+</style>
+
+
+
+<!-- SCRIPT CON LLAMADA A GEMINI -->
+
+<script>
+
+    const GEMINI_API_KEY = "AQ.Ab8RN6JHULghiU0TZb_kOIi9FMI9hTcko7Wv5u3ob3eCFitl2w";
+
+
+
+    function toggleIAChat() {
+
+        const chat = document.getElementById('ia-chat-modal');
+
+        if (chat.style.display === 'flex') {
+
+            chat.style.display = 'none';
+
+        } else {
+
+            chat.style.display = 'flex';
+
+        }
+
+    }
+
+
+
+    function handleIAKeyPress(e) {
+
+        if (e.key === 'Enter') sendIAMessage();
+
+    }
+
+
+
+    async function sendIAMessage() {
+
+        const input = document.getElementById('ia-user-input');
+
+        const container = document.getElementById('ia-messages-container');
+
+        const prompt = input.value.trim();
+
+        if (!prompt) return;
+
+
+
+        // 1. Mensaje del usuario
+
+        const userMsg = document.createElement('div');
+
+        userMsg.className = 'ia-msg user';
+
+        userMsg.textContent = prompt;
+
+        container.appendChild(userMsg);
+
+
+
+        input.value = '';
+
+        container.scrollTop = container.scrollHeight;
+
+
+
+        // 2. Mensaje "Pensando..." del bot
+
+        const botMsg = document.createElement('div');
+
+        botMsg.className = 'ia-msg bot';
+
+        botMsg.textContent = 'Pensando...';
+
+        container.appendChild(botMsg);
+
+        container.scrollTop = container.scrollHeight;
+
+
+
+        try {
+
+            // Petición a la API usando gemini-1.5-flash
+
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+
+                method: 'POST',
+
+                headers: { 'Content-Type': 'application/json' },
+
+                body: JSON.stringify({
+
+                    contents: [{ parts: [{ text: prompt }] }]
+
+                })
+
+            });
+
+
+
+            const data = await response.json();
+
+
+
+            if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+
+                botMsg.textContent = data.candidates[0].content.parts[0].text;
+
+            } else if (data.error) {
+
+                botMsg.textContent = "Error de API: " + data.error.message;
+
+            } else {
+
+                botMsg.textContent = "Respuesta no recibida correctamente.";
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            botMsg.textContent = "Error de conexión al servidor.";
+
+        }
+
+
+
+        container.scrollTop = container.scrollHeight;
+
+    }
+
+</script>
+
+
+
+
+
+
+<!-- ASISTENTE IA DE CIENCIAS SOCIALES -->
+<button id="ia-floating-btn" onclick="toggleIAChat()">
+    <span>🏛️</span> Asistente Sociales
+</button>
+
+<div id="ia-chat-modal">
+    <div class="ia-header">
+        <span>🏛️ Asistente Nodus - Sociales</span>
+        <button class="ia-close-btn" onclick="toggleIAChat()">✕</button>
+    </div>
+    <div class="ia-messages" id="ia-messages-container">
+        <div class="ia-msg bot">
+            ¡Hola! Soy tu tutor de Ciencias Sociales. ¿En qué tema de geografía, economía, historia o ciudadanía podemos trabajar hoy?
+        </div>
+    </div>
+    <div class="ia-input-container">
+        <input type="text" id="ia-user-input" placeholder="Consulta sobre Sociales..." onkeypress="handleIAKeyPress(event)">
+        <button onclick="sendIAMessage()">➤</button>
+    </div>
+</div>
+
+<!-- ESTILOS CSS (TEMA ROJO SOCIALES) -->
+<style>
+/* BOTÓN FLOTANTE */
+#ia-floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #991b1b; /* Rojo carmesí */
+    color: #ffffff;      /* Letras blancas */
+    border: 2px solid #f87171; /* Borde rojo claro constante */
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(248, 113, 113, 0.4);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* VENTANA PRINCIPAL DEL CHAT (CUADRO ROJO) */
+#ia-chat-modal {
+    position: fixed;
+    bottom: 85px;
+    right: 25px;
+    width: 350px;
+    height: 450px;
+    background: #180505; /* Fondo rojo muy oscuro */
+    border: 2px solid #dc2626; /* Borde rojo constante */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(220, 38, 38, 0.3);
+    z-index: 99999;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ENCABEZADO */
+.ia-header {
+    background: #2d0a0a; /* Rojo vino oscuro */
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff; /* Texto blanco */
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #dc2626;
+}
+
+.ia-close-btn {
+    background: transparent;
+    border: none;
+    color: #f87171; /* Rojo claro constante */
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ÁREA DE MENSAJES */
+.ia-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #180505;
+}
+
+.ia-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* MENSAJE DEL BOT */
+.ia-msg.bot {
+    background: #2d0a0a;
+    color: #ffffff; /* Texto blanco */
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+    border: 1px solid #dc2626;
+}
+
+/* MENSAJE DEL USUARIO */
+.ia-msg.user {
+    background: #991b1b;
+    color: #ffffff; /* Texto blanco */
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+    border: 1px solid #f87171;
+}
+
+/* CONTENEDOR DE ENTRADA DE TEXTO */
+.ia-input-container {
+    padding: 12px;
+    background: #2d0a0a;
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid #dc2626;
+}
+
+.ia-input-container input {
+    flex: 1;
+    background: #180505;
+    border: 1px solid #dc2626; /* Borde rojo constante */
+    padding: 10px 14px;
+    border-radius: 20px;
+    color: #ffffff; /* Texto del usuario blanco */
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.ia-input-container input::placeholder {
+    color: #f87171; /* Placeholder rojo claro */
+}
+
+/* BOTÓN DE ENVIAR */
+.ia-input-container button {
+    background: #991b1b;
+    border: 1px solid #f87171;
+    color: #ffffff; /* Icono blanco */
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+</style>
+
+<!-- SCRIPT DE CONEXIÓN A GEMINI (ESPECIALIZADO EN SOCIALES) -->
+<script>
+    const GEMINI_API_KEY = "AQ.Ab8RN6JHULghiU0TZb_kOIi9FMI9hTcko7Wv5u3ob3eCFitl2w";
+
+    function toggleIAChat() {
+        const chat = document.getElementById('ia-chat-modal');
+        if (chat.style.display === 'flex') {
+            chat.style.display = 'none';
+        } else {
+            chat.style.display = 'flex';
+        }
+    }
+
+    function handleIAKeyPress(e) {
+        if (e.key === 'Enter') sendIAMessage();
+    }
+
+    async function sendIAMessage() {
+        const input = document.getElementById('ia-user-input');
+        const container = document.getElementById('ia-messages-container');
+        const prompt = input.value.trim();
+        if (!prompt) return;
+
+        // 1. Mostrar mensaje del usuario
+        const userMsg = document.createElement('div');
+        userMsg.className = 'ia-msg user';
+        userMsg.textContent = prompt;
+        container.appendChild(userMsg);
+
+        input.value = '';
+        container.scrollTop = container.scrollHeight;
+
+        // 2. Mostrar estado "Analizando..." del bot
+        const botMsg = document.createElement('div');
+        botMsg.className = 'ia-msg bot';
+        botMsg.textContent = 'Analizando consulta...';
+        container.appendChild(botMsg);
+        container.scrollTop = container.scrollHeight;
+
+        try {
+            // Petición a Gemini con rol contextualizado de Ciencias Sociales
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: "Eres un tutor experto en Ciencias Sociales (Geografía, Economía, Sociología y Ciudadanía) para estudiantes. Responde de forma clara, crítica y didáctica a la siguiente pregunta: " + prompt
+                        }]
+                    }]
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                botMsg.textContent = data.candidates[0].content.parts[0].text;
+            } else if (data.error) {
+                botMsg.textContent = "Error de API: " + data.error.message;
+            } else {
+                botMsg.textContent = "No se pudo obtener una respuesta válida.";
+            }
+        } catch (error) {
+            console.error(error);
+            botMsg.textContent = "Error de conexión con el servidor de la IA.";
+        }
+
+        container.scrollTop = container.scrollHeight;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- TARJETA DE CONTENIDO: LAS CIENCIAS SOCIALES Y SU VÍNCULO CON LA FILOSOFÍA (TEMA ROJO) -->
+<div class="social-split-container">
+    
+    <!-- COLUMNA IZQUIERDA: RESUMEN Y CONEXIÓN FILOSÓFICA -->
+    <div class="social-col-left">
+        <div class="social-box">
+            <span class="social-tag">🏛️ Identidad Académica</span>
+            <div class="social-concept-box">
+                <strong>Objeto de Estudio:</strong>
+                <p>El ser humano en sociedad, sus instituciones, culturas, interacciones y estructuras de poder.</p>
+            </div>
+            <div class="social-concept-box highlight-box">
+                <strong>El Alma Filosófica:</strong>
+                <p>Nacen de la pregunta sobre <em>cómo debemos vivir juntos</em> (Ética y Política).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLUMNA DERECHA: INFORMACIÓN PRINCIPAL -->
+    <div class="social-col-right">
+        <div class="social-card-header">
+            <h2>🌍 Las Ciencias Sociales: El Espejo de la Humanidad</h2>
+            <span class="social-badge">Unidad 1</span>
+        </div>
+
+        <div class="social-card-body">
+            
+            <!-- SECCIÓN 1: QUÉ SON -->
+            <div class="social-story-block">
+                <div class="story-icon">👥</div>
+                <div class="story-content">
+                    <h3>1. ¿Qué son las Ciencias Sociales?</h3>
+                    <p>
+                        Son el conjunto de disciplinas que analizan y explican los <strong>fenómenos de la sociedad humana</strong>, tanto desde el punto de vista individual como colectivo.
+                    </p>
+                    <div class="story-example">
+                        A diferencia de las ciencias exactas, estudian realidades cambiantes moldeadas por la cultura, la historia y la economía.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: DISCIPLINAS PRINCIPALES -->
+            <div class="social-story-block">
+                <div class="story-icon">🌐</div>
+                <div class="story-content">
+                    <h3>2. Pilares Fundamentales</h3>
+                    <div class="social-grid-branches">
+                        <div class="branch-item">
+                            <strong>Sociología:</strong> Dinámicas y estructuras de los grupos humanos.
+                        </div>
+                        <div class="branch-item">
+                            <strong>Historia:</strong> El devenir temporal y la memoria colectiva.
+                        </div>
+                        <div class="branch-item">
+                            <strong>Economía:</strong> Producción, distribución y consumo de bienes.
+                        </div>
+                        <div class="branch-item">
+                            <strong>Antropología:</strong> Evolución biológica y cultural del hombre.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: LA RELACIÓN CON LA FILOSOFÍA -->
+            <div class="social-story-block highlight-story">
+                <div class="story-icon">🧠</div>
+                <div class="story-content">
+                    <h3>3. El Vínculo Profundo con la Filosofía</h3>
+                    <p>
+                        La filosofía es la <strong>madre y el fundamento crítico</strong> de las ciencias sociales. Mientras las ciencias sociales describen <em>cómo es</em> la sociedad, la filosofía se pregunta <em>cómo debería ser</em>.
+                    </p>
+                    <ul class="story-list">
+                        <li><strong>Filosofía Política:</strong> Da origen a los conceptos de justicia, libertad y estado que estudia la sociología y el derecho.</li>
+                        <li><strong>Epistemología Social:</strong> Cuestiona la validez de los métodos con los que analizamos al ser humano.</li>
+                        <li><strong>Ética:</strong> Evalúa la moralidad de las acciones colectivas y los sistemas económicos.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- ESTILOS CSS CON TEMA ROJO ACADÉMICO NODUS -->
+<style>
+.social-split-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1050px;
+    margin: 20px auto;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* COLUMNA IZQUIERDA */
+.social-col-left {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-box {
+    background: #1c0505; /* Fondo rojo muy oscuro */
+    border: 2px solid #ef4444; /* Borde rojo neón */
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8), 0 0 12px rgba(239, 68, 68, 0.25);
+}
+
+.social-tag {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background: #2b0a0a;
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: 1px solid #f87171;
+    text-align: center;
+}
+
+.social-concept-box {
+    background: #2b0a0a;
+    border-left: 4px solid #ef4444;
+    padding: 12px;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.social-concept-box strong {
+    color: #f87171;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.social-concept-box p {
+    margin: 0;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+.highlight-box {
+    border-left-color: #ffaa00; /* Toque dorado/ámbar para contraste filosófico */
+}
+.highlight-box strong {
+    color: #ffaa00;
+}
+
+/* COLUMNA DERECHA */
+.social-col-right {
+    flex: 2 1 500px;
+    background: #1c0505;
+    border: 2px solid #ef4444;
+    border-radius: 16px;
+    color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(239, 68, 68, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.social-card-header {
+    background: #2b0a0a;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ef4444;
+}
+
+.social-card-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #ffffff;
+}
+
+.social-badge {
+    background: #dc2626;
+    color: #ffffff;
+    border: 1px solid #f87171;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.social-card-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.social-story-block {
+    display: flex;
+    gap: 15px;
+    background: #2b0a0a;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #dc2626;
+}
+
+.highlight-story {
+    border: 2px solid #ffaa00;
+    background: #361500; /* Fondo cálido destacado para la sección de filosofía */
+}
+
+.story-icon {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+}
+
+.story-content h3 {
+    margin: 0 0 6px 0;
+    color: #f87171;
+    font-size: 1.05rem;
+}
+
+.highlight-story .story-content h3 {
+    color: #ffaa00;
+}
+
+.story-content p {
+    margin: 0 0 8px 0;
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.story-example {
+    background: #1c0505;
+    border-left: 3px solid #ef4444;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.social-grid-branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.branch-item {
+    background: #1c0505;
+    border: 1px solid #dc2626;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: #ffffff;
+    line-height: 1.3;
+}
+
+.branch-item strong {
+    color: #f87171;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.story-list {
+    margin: 0 0 8px 0;
+    padding-left: 20px;
+    font-size: 0.88rem;
+    color: #ffffff;
+}
+
+.story-list li strong {
+    color: #ffaa00;
+}
+</style>
+
+
+
+<!-- MÓDULO INTERACTIVO: EL NACIMIENTO DE LAS CIENCIAS SOCIALES -->
+<div class="social-origin-container">
+    
+    <!-- COLUMNA IZQUIERDA: RESUMEN Y FILOSOFÍA -->
+    <div class="social-col-left">
+        <div class="social-box">
+            <span class="social-tag">🏛️ Raíz y Propósito</span>
+            <div class="social-concept-box">
+                <strong>¿Cuándo nacen?</strong>
+                <p>Entre los siglos XVIII y XIX, impulsadas por las grandes revoluciones y la necesidad de entender el caos social.</p>
+            </div>
+            <div class="social-concept-box highlight-box">
+                <strong>La Gran Meta:</strong>
+                <p>Descifrar las leyes invisibles que mueven a las sociedades para mejorar la convivencia y resolver conflictos.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLUMNA DERECHA: HISTORIA Y EXPLICACIÓN -->
+    <div class="social-col-right">
+        <div class="social-card-header">
+            <h2>🌍 Cómo Nacen las Ciencias Sociales: El Caos y la Sociedad</h2>
+            <span class="social-badge">Introducción Social</span>
+        </div>
+
+        <div class="social-card-body">
+            
+            <!-- HISTORIA 1: EL NACIMIENTO POR EL CAOS -->
+            <div class="social-story-block">
+                <div class="story-icon">🏭</div>
+                <div class="story-content">
+                    <h3>1. El Nacimiento: Del Caos Industrial a la Reflexión</h3>
+                    <p>
+                        Imagina Europa en plena <strong>Revolución Industrial</strong>. Las ciudades crecieron de golpe, la gente dejó el campo para hacinarse en fábricas, las monarquías cayeron y las antiguas certezas religiosas temblaron.
+                    </p>
+                    <div class="story-example">
+                        La gente se preguntaba: <em>¿Por qué hay tanta desigualdad de repente? ¿Cómo se organiza una sociedad sin un rey absoluto?</em><br>
+                        <strong>¡Las Ciencias Sociales nacen de la urgencia de explicar el nuevo orden humano!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORIA 2: LA META -->
+            <div class="social-story-block">
+                <div class="story-icon">🎯</div>
+                <div class="story-content">
+                    <h3>2. ¿Cuál fue su Meta Principal?</h3>
+                    <p>
+                        Así como la física estudiaba las leyes de la naturaleza, los pensadores sociales buscaron las <strong>leyes científicas del comportamiento humano en grupo</strong>.
+                    </p>
+                    <div class="story-example">
+                        Su meta no era solo observar el sufrimiento o el poder, sino <strong>entender las causas profundas de los conflictos</strong> (pobreza, guerras, revoluciones) para guiar a la humanidad hacia sociedades más justas, ordenadas y libres.
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORIA 3: DINÁMICAS Y ESTRUCTURAS HUMANAS -->
+            <div class="social-story-block highlight-story">
+                <div class="story-icon">⚙️</div>
+                <div class="story-content">
+                    <h3>3. Dinámicas y Estructuras Humanas: El Entramado Invisible</h3>
+                    <p>
+                        Para entender por qué actuamos como actuamos en masa, las ciencias sociales desglosan la sociedad en dos conceptos clave:
+                    </p>
+                    <ul class="story-list">
+                        <li><strong>Las Estructuras Sociales (El esqueleto):</strong> Son las bases invisibles pero firmes que sostienen a una sociedad (la familia, las leyes, la economía, la religión, las clases sociales). Son como los muros de una casa que no cambian de la noche a la mañana.</li>
+                        <li><strong>Las Dinámicas Humanas (El motor):</strong> Es el movimiento constante, la forma en que las personas interactúan, protestan, se comunican, cambian de cultura, migran y transforman esas estructuras con el tiempo.</li>
+                    </ul>
+                    <div class="story-example">
+                        <strong>Ejemplo vivo:</strong> Una estructura es el sistema educativo tradicional; una dinámica humana es cuando los estudiantes se organizan y exigen una reforma moderna. ¡La dinámica presiona y transforma la estructura!
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESUMEN FINAL -->
+            <div class="social-summary-box">
+                <h3>💡 Conexión Filosófica y Social:</h3>
+                <p style="margin: 0; font-size: 0.88rem; color: #ffffff; text-align: center; line-height: 1.4;">
+                    Mientras la filosofía se preguntó <em>qué es la justicia</em>, las ciencias sociales salieron a medir <em>cómo se aplica la justicia</em> en las calles, las leyes y la economía de los pueblos.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- ESTILOS CSS CON TEMA ROJO ACADÉMICO NODUS -->
+<style>
+.social-origin-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1050px;
+    margin: 20px auto;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* COLUMNA IZQUIERDA */
+.social-col-left {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-box {
+    background: #1c0505;
+    border: 2px solid #ef4444;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8), 0 0 12px rgba(239, 68, 68, 0.25);
+}
+
+.social-tag {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background: #2b0a0a;
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: 1px solid #f87171;
+    text-align: center;
+}
+
+.social-concept-box {
+    background: #2b0a0a;
+    border-left: 4px solid #ef4444;
+    padding: 12px;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.social-concept-box strong {
+    color: #f87171;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.social-concept-box p {
+    margin: 0;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+.highlight-box {
+    border-left-color: #ffaa00;
+}
+.highlight-box strong {
+    color: #ffaa00;
+}
+
+/* COLUMNA DERECHA */
+.social-col-right {
+    flex: 2 1 500px;
+    background: #1c0505;
+    border: 2px solid #ef4444;
+    border-radius: 16px;
+    color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(239, 68, 68, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.social-card-header {
+    background: #2b0a0a;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ef4444;
+}
+
+.social-card-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #ffffff;
+}
+
+.social-badge {
+    background: #dc2626;
+    color: #ffffff;
+    border: 1px solid #f87171;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.social-card-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.social-story-block {
+    display: flex;
+    gap: 15px;
+    background: #2b0a0a;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #dc2626;
+}
+
+.highlight-story {
+    border: 2px solid #ffaa00;
+    background: #361500;
+}
+
+.story-icon {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+}
+
+.story-content h3 {
+    margin: 0 0 6px 0;
+    color: #f87171;
+    font-size: 1.05rem;
+}
+
+.highlight-story .story-content h3 {
+    color: #ffaa00;
+}
+
+.story-content p {
+    margin: 0 0 8px 0;
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.story-example {
+    background: #1c0505;
+    border-left: 3px solid #ef4444;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.story-list {
+    margin: 0 0 8px 0;
+    padding-left: 20px;
+    font-size: 0.88rem;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.story-list li strong {
+    color: #ffaa00;
+}
+
+.social-summary-box {
+    background: #2b0a0a;
+    border: 1px solid #ef4444;
+    border-radius: 10px;
+    padding: 14px;
+}
+</style>
+
+
+
